@@ -1,6 +1,9 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,10 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.jmx.export.annotation.ManagedNotification;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -29,20 +36,36 @@ public class Product {
   private String description;
 
   @NonNull
+  @Column(nullable = false)
   private int price;
 
   @NonNull
+  @Column(nullable = false)
   private int stock;
 
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
   private Date postedDate;
 
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id", nullable = false, updatable = false)
   private Profile profile;
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_id",
+      cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
+  @OrderBy("created DESC")
+  private final List<Image> productImages = new LinkedList<>();
+
+  @NonNull
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "profile_id", nullable = false, updatable = false)
+  private Profile seller;
+
+  // TODO: Ask for clarification on ManyToMany relationships for OrderItem.
 
   public Long getId() {
     return id;
@@ -93,6 +116,16 @@ public class Product {
   @NonNull
   public Profile getProfile() {
     return profile;
+  }
+
+  @NonNull
+  public List<Image> getProductImages() {
+    return productImages;
+  }
+
+  @NonNull
+  public Profile getSeller() {
+    return seller;
   }
 
 }

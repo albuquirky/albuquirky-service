@@ -1,10 +1,16 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -23,8 +29,15 @@ public class Image {
   private String imageDescription;
 
   @NonNull
-  @Column(name = "profile_id", nullable = false, updatable = false)
-  private Long profile;
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @Column(name = "product_id", nullable = false, updatable = false)
+  private Product product;
+
+  @NonNull
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
   public Long getId() {
     return id;
@@ -48,8 +61,13 @@ public class Image {
   }
 
   @NonNull
-  public Long getProfile() {
-    return profile;
+  public Product getProduct() {
+    return product;
+  }
+
+  @NonNull
+  public Date getCreated() {
+    return created;
   }
 
 }

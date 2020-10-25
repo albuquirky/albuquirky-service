@@ -1,10 +1,16 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
+import java.util.LinkedList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -16,14 +22,15 @@ public class Profile {
   private Long id;
 
   @NonNull
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String username;
 
   @NonNull
+  @Column(nullable = false)
   private String password;
 
   @NonNull
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String email;
 
   @Column(unique = true)
@@ -32,8 +39,25 @@ public class Profile {
   private String address;
 
   @NonNull
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String oauth;
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "order_id",
+      cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+  @OrderBy("placedDate DESC")
+  private final List<Order> orders = new LinkedList<>();
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_id",
+      cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
+  @OrderBy("name DESC")
+  private final List<Product> products = new LinkedList<>();
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "commission_id", cascade = {CascadeType.ALL})
+  @OrderBy("waitlistPosition ASC")
+  private final List<Commission> commissions = new LinkedList<>();
 
   public Long getId() {
     return id;
@@ -90,4 +114,20 @@ public class Profile {
   public void setOauth(@NonNull String oauth) {
     this.oauth = oauth;
   }
+
+  @NonNull
+  public List<Order> getOrders() {
+    return orders;
+  }
+
+  @NonNull
+  public List<Product> getProducts() {
+    return products;
+  }
+
+  @NonNull
+  public List<Commission> getCommissions() {
+    return commissions;
+  }
+
 }

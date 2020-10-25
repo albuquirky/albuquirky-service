@@ -28,11 +28,11 @@ public class OrderItem {
   private Order order;
 
   @NonNull
-  @Column(updatable = false)
+  @Column(updatable = false, nullable = false)
   private int itemQuantity;
 
   @NonNull
-  @Column(updatable = false)
+  @Column(updatable = false, nullable = false)
   private int unitPrice;
 
   public Long getId() {

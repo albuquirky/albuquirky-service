@@ -3,6 +3,7 @@ package edu.cnm.deepdive.albuquirky.model.entity;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,13 @@ public class Order {
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
-  private Date placed_date;
+  @Column(nullable = false)
+  private Date placedDate;
+
+  @NonNull
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @JoinColumn(name = "profile_id", nullable = false, updatable = false)
+  private Profile buyerProfile;
 
   public Long getId() {
     return id;
@@ -41,12 +48,17 @@ public class Order {
   }
 
   @NonNull
-  public Date getPlaced_date() {
-    return placed_date;
+  public Date getPlacedDate() {
+    return placedDate;
   }
 
   public void setPlaced_date(@NonNull Date placed_date) {
-    this.placed_date = placed_date;
+    this.placedDate = placedDate;
+  }
+
+  @NonNull
+  public Profile getBuyerProfile() {
+    return buyerProfile;
   }
 
 }
