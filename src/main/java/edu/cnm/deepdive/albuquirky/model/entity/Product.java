@@ -61,11 +61,13 @@ public class Product {
   private final List<Image> productImages = new LinkedList<>();
 
   @NonNull
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "profile_id", nullable = false, updatable = false)
-  private Profile seller;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_id",
+      cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+  @OrderBy("itemQuantity DESC")
+  private final List<OrderItem> orderItems = new LinkedList<>();
 
   // TODO: Ask for clarification on ManyToMany relationships for OrderItem.
+
 
   public Long getId() {
     return id;
@@ -74,10 +76,6 @@ public class Product {
   @NonNull
   public String getName() {
     return name;
-  }
-
-  public void setName(@NonNull String name) {
-    this.name = name;
   }
 
   public String getDescription() {
@@ -124,8 +122,7 @@ public class Product {
   }
 
   @NonNull
-  public Profile getSeller() {
-    return seller;
+  public List<OrderItem> getOrderItems() {
+    return orderItems;
   }
-
 }

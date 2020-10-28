@@ -129,5 +129,4 @@ public class Profile {
   public List<Commission> getCommissions() {
     return commissions;
   }
-
 }

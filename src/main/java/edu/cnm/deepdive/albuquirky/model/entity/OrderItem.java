@@ -53,8 +53,15 @@ public class OrderItem {
     return itemQuantity;
   }
 
+  public void setItemQuantity(int itemQuantity) {
+    this.itemQuantity = itemQuantity;
+  }
+
   public int getUnitPrice() {
     return unitPrice;
   }
 
+  public void setUnitPrice(int unitPrice) {
+    this.unitPrice = unitPrice;
+  }
 }

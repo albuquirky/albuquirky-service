@@ -34,9 +34,9 @@ public class Commission {
   @Column(nullable = false)
   private int waitlistPosition;
 
-  @ManyToOne
   @JoinColumn(name = "profile_id")
-  private Profile profile;
+  private Profile seller;
+// ManyToMany?
 
   @NonNull
   @CreationTimestamp
@@ -44,11 +44,13 @@ public class Commission {
   @Column(nullable = false)
   private Date timestamp;
 
+  @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "profile_id")
+  @JoinColumn(name = "profile_id", nullable = false)
   private Profile commissioner;
 
   // TODO: Ask for clarification on OneToOne annotations.
+
 
   public Long getId() {
     return id;
@@ -71,9 +73,12 @@ public class Commission {
     this.waitlistPosition = waitlistPosition;
   }
 
-  @NonNull
-  public Profile getProfile() {
-    return profile;
+  public Profile getSeller() {
+    return seller;
+  }
+
+  public void setSeller(Profile seller) {
+    this.seller = seller;
   }
 
   @NonNull
@@ -85,8 +90,12 @@ public class Commission {
     this.timestamp = timestamp;
   }
 
+  @NonNull
   public Profile getCommissioner() {
     return commissioner;
   }
 
+  public void setCommissioner(@NonNull Profile commissioner) {
+    this.commissioner = commissioner;
+  }
 }

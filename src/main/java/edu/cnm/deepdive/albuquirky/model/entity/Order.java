@@ -1,6 +1,9 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,11 +28,6 @@ public class Order {
   private Long id;
 
   @NonNull
-  @ManyToOne
-  @JoinColumn(name = "profile_id", nullable = false, updatable = false)
-  private Profile profile;
-
-  @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
@@ -38,13 +38,14 @@ public class Order {
   @JoinColumn(name = "profile_id", nullable = false, updatable = false)
   private Profile buyerProfile;
 
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "order_id",
+      cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+  @OrderBy("itemQuantity DESC")
+  private final List<OrderItem> itemsOnOrder = new LinkedList<>();
+
   public Long getId() {
     return id;
-  }
-
-  @NonNull
-  public Profile getProfile() {
-    return profile;
   }
 
   @NonNull
@@ -52,7 +53,7 @@ public class Order {
     return placedDate;
   }
 
-  public void setPlaced_date(@NonNull Date placed_date) {
+  public void setPlacedDate(@NonNull Date placedDate) {
     this.placedDate = placedDate;
   }
 
@@ -61,4 +62,8 @@ public class Order {
     return buyerProfile;
   }
 
+  @NonNull
+  public List<OrderItem> getItemsOnOrder() {
+    return itemsOnOrder;
+  }
 }

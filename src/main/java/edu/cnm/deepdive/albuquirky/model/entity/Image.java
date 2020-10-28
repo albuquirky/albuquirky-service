@@ -69,5 +69,4 @@ public class Image {
   public Date getCreated() {
     return created;
   }
-
 }
