@@ -11,14 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.jmx.export.annotation.ManagedNotification;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -65,9 +63,6 @@ public class Product {
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("itemQuantity DESC")
   private final List<OrderItem> orderItems = new LinkedList<>();
-
-  // TODO: Ask for clarification on ManyToMany relationships for OrderItem.
-
 
   public Long getId() {
     return id;

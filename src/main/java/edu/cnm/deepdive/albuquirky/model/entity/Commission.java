@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +35,7 @@ public class Commission {
 
   @JoinColumn(name = "profile_id")
   private Profile seller;
-// ManyToMany?
+  // TODO Inquire about whether we need a second ManyToOne relationship with the profile entity.
 
   @NonNull
   @CreationTimestamp
@@ -48,9 +47,6 @@ public class Commission {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id", nullable = false)
   private Profile commissioner;
-
-  // TODO: Ask for clarification on OneToOne annotations.
-
 
   public Long getId() {
     return id;
