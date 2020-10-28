@@ -53,10 +53,6 @@ public class Order {
     return placedDate;
   }
 
-  public void setPlacedDate(@NonNull Date placedDate) {
-    this.placedDate = placedDate;
-  }
-
   @NonNull
   public Profile getBuyerProfile() {
     return buyerProfile;

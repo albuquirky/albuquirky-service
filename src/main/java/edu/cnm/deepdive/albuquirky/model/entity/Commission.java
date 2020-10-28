@@ -82,10 +82,6 @@ public class Commission {
     return timestamp;
   }
 
-  public void setTimestamp(@NonNull Date timestamp) {
-    this.timestamp = timestamp;
-  }
-
   @NonNull
   public Profile getCommissioner() {
     return commissioner;

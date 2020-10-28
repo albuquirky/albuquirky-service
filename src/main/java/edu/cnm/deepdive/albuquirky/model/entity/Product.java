@@ -102,10 +102,6 @@ public class Product {
     return postedDate;
   }
 
-  public void setPostedDate(@NonNull Date postedDate) {
-    this.postedDate = postedDate;
-  }
-
   @NonNull
   public Profile getProfile() {
     return profile;
