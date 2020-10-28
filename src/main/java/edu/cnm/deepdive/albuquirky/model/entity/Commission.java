@@ -33,9 +33,9 @@ public class Commission {
   @Column(nullable = false)
   private int waitlistPosition;
 
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id")
   private Profile seller;
-  // TODO Inquire about whether we need a second ManyToOne relationship with the profile entity.
 
   @NonNull
   @CreationTimestamp
@@ -47,6 +47,9 @@ public class Commission {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id", nullable = false)
   private Profile commissioner;
+
+  @Column(name = "product_id")
+  private Long product;
 
   public Long getId() {
     return id;
@@ -89,6 +92,14 @@ public class Commission {
 
   public void setCommissioner(@NonNull Profile commissioner) {
     this.commissioner = commissioner;
+  }
+
+  public Long getProduct() {
+    return product;
+  }
+
+  public void setProduct(Long product) {
+    this.product = product;
   }
 
 }
