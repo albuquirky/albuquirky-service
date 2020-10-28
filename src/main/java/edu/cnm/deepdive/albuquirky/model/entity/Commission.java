@@ -90,4 +90,5 @@ public class Commission {
   public void setCommissioner(@NonNull Profile commissioner) {
     this.commissioner = commissioner;
   }
+
 }
