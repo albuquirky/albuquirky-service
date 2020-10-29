@@ -57,7 +57,12 @@ public class Profile {
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "commission_id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
-  private final List<Commission> commissions = new LinkedList<>();
+  private final List<Commission> commissionsSelling = new LinkedList<>();
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "commission_id", cascade = {CascadeType.ALL})
+  @OrderBy("waitlistPosition ASC")
+  private final List<Commission> commissionsRequested = new LinkedList<>();
 
   public Long getId() {
     return id;
@@ -126,7 +131,13 @@ public class Profile {
   }
 
   @NonNull
-  public List<Commission> getCommissions() {
-    return commissions;
+  public List<Commission> getCommissionsSelling() {
+    return commissionsSelling;
   }
+
+  @NonNull
+  public List<Commission> getCommissionsRequested() {
+    return commissionsRequested;
+  }
+
 }

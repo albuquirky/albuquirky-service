@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,9 +33,9 @@ public class Commission {
   @Column(nullable = false)
   private int waitlistPosition;
 
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id")
   private Profile seller;
-// ManyToMany?
 
   @NonNull
   @CreationTimestamp
@@ -49,8 +48,8 @@ public class Commission {
   @JoinColumn(name = "profile_id", nullable = false)
   private Profile commissioner;
 
-  // TODO: Ask for clarification on OneToOne annotations.
-
+  @Column(name = "product_id")
+  private Long product;
 
   public Long getId() {
     return id;
@@ -86,10 +85,6 @@ public class Commission {
     return timestamp;
   }
 
-  public void setTimestamp(@NonNull Date timestamp) {
-    this.timestamp = timestamp;
-  }
-
   @NonNull
   public Profile getCommissioner() {
     return commissioner;
@@ -98,4 +93,13 @@ public class Commission {
   public void setCommissioner(@NonNull Profile commissioner) {
     this.commissioner = commissioner;
   }
+
+  public Long getProduct() {
+    return product;
+  }
+
+  public void setProduct(Long product) {
+    this.product = product;
+  }
+
 }
