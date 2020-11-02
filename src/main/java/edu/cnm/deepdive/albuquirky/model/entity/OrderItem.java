@@ -44,9 +44,17 @@ public class OrderItem {
     return profile;
   }
 
+  public void setProfile(@NonNull Profile profile) {
+    this.profile = profile;
+  }
+
   @NonNull
   public Order getOrder() {
     return order;
+  }
+
+  public void setOrder(@NonNull Order order) {
+    this.order = order;
   }
 
   public int getItemQuantity() {

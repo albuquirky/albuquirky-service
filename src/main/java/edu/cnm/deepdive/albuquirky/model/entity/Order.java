@@ -58,6 +58,10 @@ public class Order {
     return buyerProfile;
   }
 
+  public void setBuyerProfile(@NonNull Profile buyerProfile) {
+    this.buyerProfile = buyerProfile;
+  }
+
   @NonNull
   public List<OrderItem> getItemsOnOrder() {
     return itemsOnOrder;

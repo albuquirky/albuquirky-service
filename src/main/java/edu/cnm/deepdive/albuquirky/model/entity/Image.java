@@ -65,6 +65,10 @@ public class Image {
     return product;
   }
 
+  public void setProduct(@NonNull Product product) {
+    this.product = product;
+  }
+
   @NonNull
   public Date getCreated() {
     return created;

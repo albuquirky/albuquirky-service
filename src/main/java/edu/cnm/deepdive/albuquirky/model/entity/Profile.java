@@ -39,7 +39,7 @@ public class Profile {
   private String address;
 
   @NonNull
-  @Column(unique = true, nullable = false)
+  @Column(unique = true, nullable = false, updatable = false)
   private String oauth;
 
   @NonNull

@@ -73,6 +73,10 @@ public class Product {
     return name;
   }
 
+  public void setName(@NonNull String name) {
+    this.name = name;
+  }
+
   public String getDescription() {
     return description;
   }
@@ -105,6 +109,10 @@ public class Product {
   @NonNull
   public Profile getProfile() {
     return profile;
+  }
+
+  public void setProfile(@NonNull Profile profile) {
+    this.profile = profile;
   }
 
   @NonNull
