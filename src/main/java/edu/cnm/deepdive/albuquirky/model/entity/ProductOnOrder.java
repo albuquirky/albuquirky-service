@@ -10,11 +10,11 @@ import javax.persistence.ManyToOne;
 import org.springframework.lang.NonNull;
 
 @Entity
-public class OrderItem {
+public class ProductOnOrder {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "products_on_order_id", nullable = false, updatable = false)
+  @Column(name = "product_on_order_id", nullable = false, updatable = false)
   private Long id;
 
   @NonNull

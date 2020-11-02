@@ -42,7 +42,7 @@ public class Order {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order_id",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("itemQuantity DESC")
-  private final List<OrderItem> itemsOnOrder = new LinkedList<>();
+  private final List<ProductOnOrder> itemsOnOrder = new LinkedList<>();
 
   public Long getId() {
     return id;
@@ -63,7 +63,7 @@ public class Order {
   }
 
   @NonNull
-  public List<OrderItem> getItemsOnOrder() {
+  public List<ProductOnOrder> getItemsOnOrder() {
     return itemsOnOrder;
   }
 
