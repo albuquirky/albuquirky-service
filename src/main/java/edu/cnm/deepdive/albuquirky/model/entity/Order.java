@@ -33,13 +33,15 @@ public class Order {
   @Column(nullable = false)
   private Date placedDate;
 
+
+  // TODO: Change to match column name in ERD.
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "profile_id", nullable = false, updatable = false)
   private Profile buyerProfile;
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "order_id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("itemQuantity DESC")
   private final List<ProductOnOrder> itemsOnOrder = new LinkedList<>();

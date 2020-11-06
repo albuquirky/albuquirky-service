@@ -35,7 +35,7 @@ public class Commission {
   private int waitlistPosition;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "profile_id")
+  @JoinColumn(name = "seller_id")
   private Profile seller;
 
   @NonNull
@@ -46,7 +46,7 @@ public class Commission {
 
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "profile_id", nullable = false)
+  @JoinColumn(name = "commissioner_id", nullable = false)
   private Profile commissioner;
 
   @Column(name = "product_id")
