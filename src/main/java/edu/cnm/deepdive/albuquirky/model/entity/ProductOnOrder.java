@@ -19,8 +19,8 @@ public class ProductOnOrder {
 
   @NonNull
   @ManyToOne
-  @JoinColumn(name = "profile_id", nullable = false, updatable = false)
-  private Profile profile;
+  @JoinColumn(name = "product_id", nullable = false, updatable = false)
+  private Product product;
 
   @NonNull
   @ManyToOne
@@ -40,12 +40,12 @@ public class ProductOnOrder {
   }
 
   @NonNull
-  public Profile getProfile() {
-    return profile;
+  public Product getProduct() {
+    return product;
   }
 
-  public void setProfile(@NonNull Profile profile) {
-    this.profile = profile;
+  public void setProduct(@NonNull Product product) {
+    this.product = product;
   }
 
   @NonNull

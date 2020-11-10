@@ -43,24 +43,24 @@ public class Profile {
   private String oauth;
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "order_id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("placedDate DESC")
   private final List<Order> orders = new LinkedList<>();
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
   @OrderBy("name DESC")
   private final List<Product> products = new LinkedList<>();
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "commission_id", cascade = {CascadeType.ALL})
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
   private final List<Commission> commissionsSelling = new LinkedList<>();
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "commission_id", cascade = {CascadeType.ALL})
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
   private final List<Commission> commissionsRequested = new LinkedList<>();
 

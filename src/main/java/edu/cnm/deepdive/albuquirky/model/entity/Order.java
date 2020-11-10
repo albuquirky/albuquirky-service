@@ -37,8 +37,8 @@ public class Order {
   // TODO: Change to match column name in ERD.
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = "profile_id", nullable = false, updatable = false)
-  private Profile buyerProfile;
+  @JoinColumn(name = "buyer_id", nullable = false, updatable = false)
+  private Profile buyer;
 
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
@@ -56,12 +56,12 @@ public class Order {
   }
 
   @NonNull
-  public Profile getBuyerProfile() {
-    return buyerProfile;
+  public Profile getBuyer() {
+    return buyer;
   }
 
-  public void setBuyerProfile(@NonNull Profile buyerProfile) {
-    this.buyerProfile = buyerProfile;
+  public void setBuyer(@NonNull Profile buyer) {
+    this.buyer = buyer;
   }
 
   @NonNull

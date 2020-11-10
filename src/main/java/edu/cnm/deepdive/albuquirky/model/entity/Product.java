@@ -53,13 +53,13 @@ public class Product {
   private Profile profile;
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("created DESC")
   private final List<Image> productImages = new LinkedList<>();
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("itemQuantity DESC")
   private final List<ProductOnOrder> orderItems = new LinkedList<>();
