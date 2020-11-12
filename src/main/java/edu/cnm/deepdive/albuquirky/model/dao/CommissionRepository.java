@@ -1,15 +1,15 @@
-package edu.cnm.deepdive.albuquirky.model.service;
+package edu.cnm.deepdive.albuquirky.model.dao;
 
 import edu.cnm.deepdive.albuquirky.model.entity.Commission;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
-import java.util.Optional;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommissionRepository extends JpaRepository<Commission, Long> {
 
-  Optional<Commission> getCommissionsBySeller(Profile seller);
+  List<Commission> getAllBySeller(Profile seller);
 
 
-  Optional<Commission> getWaitlist(Profile buyer);
+//  List<Commission> getWaitlist(Profile buyer);
 
 }

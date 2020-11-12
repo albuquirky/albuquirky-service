@@ -26,10 +26,6 @@ public class Profile {
   private String username;
 
   @NonNull
-  @Column(nullable = false)
-  private String password;
-
-  @NonNull
   @Column(unique = true, nullable = false)
   private String email;
 
@@ -75,15 +71,6 @@ public class Profile {
 
   public void setUsername(@NonNull String username) {
     this.username = username;
-  }
-
-  @NonNull
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(@NonNull String password) {
-    this.password = password;
   }
 
   @NonNull

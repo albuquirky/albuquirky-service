@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +31,7 @@ public class Image {
 
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
-  @Column(name = "product_id", nullable = false, updatable = false)
+  @JoinColumn(name = "product_id", nullable = false, updatable = false)
   private Product product;
 
   @NonNull
