@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.albuquirky.controller;
 
 import edu.cnm.deepdive.albuquirky.service.ProfileService;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
