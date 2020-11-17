@@ -6,6 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.oauth2.jwt.Jwt;
+import java.util.Collection;
+import java.util.Collections;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,5 +43,4 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
     return null;
   }
-
 }
