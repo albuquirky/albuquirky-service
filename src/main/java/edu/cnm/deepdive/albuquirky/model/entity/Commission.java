@@ -15,6 +15,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the Commission Entity class, which declares the attributes needed for each commission
+ * which includes, the commission ID, the commission request, waitlist position, the seller ID,
+ * a timestamp, the commission ID and the product ID. Both seller ID and commissioner ID are annotated
+ * by ManyToOne coming from {@link Profile}. Commissions accepted by the commissioner become products.
+ */
 @Entity
 @Table(indexes = {@Index(columnList = "waitlistPosition")})
 public class Commission {

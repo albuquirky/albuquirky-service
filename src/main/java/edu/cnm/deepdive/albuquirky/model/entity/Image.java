@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the Image Entity class, which declares the attributes for the image. Included are the image
+ * ID, image file name, the image description (not required), product ID and a created timestamp.
+ * {@link Product} ID is annotated by a ManyToOne.
+ */
 @Entity
 public class Image {
 

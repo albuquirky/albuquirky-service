@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the Profile Entity class, which declares which attributes are needed for each profile which
+ * includes, the profile ID, username, password, email and oauth. The profile image and address are both
+ * not required. Profile is on the OneToMany side from {@link Commission} which has lists of commission
+ * requests and commissions selling. Also {@link Product} has a list of Profile products.
+ */
 @Entity
 public class Profile {
 

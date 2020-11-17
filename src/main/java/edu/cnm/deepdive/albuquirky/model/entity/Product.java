@@ -14,6 +14,13 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the Product Entity class, which declares the attributes needed for products which includes,
+ * the product ID, username, product description (which isn't required), product name, price, stock,
+ * posted date and the {@link Profile} ID which is annotated by a ManyToOne. Two attributes which
+ * are annotated by a OneToMany are product images, which gives a list of images for a product and
+ * order items, which gives a list of items on order.
+ */
 @Entity
 public class Product {
 
