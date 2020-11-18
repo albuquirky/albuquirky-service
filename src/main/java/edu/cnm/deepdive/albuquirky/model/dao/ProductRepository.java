@@ -4,6 +4,9 @@ import edu.cnm.deepdive.albuquirky.model.entity.Product;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * The ProductRepository interface // gets all
+ */
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
   Iterable<Product> getAllByProfileOrderByName(Profile profile);

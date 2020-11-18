@@ -14,6 +14,11 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the {@code Image} entity class, which declares the attributes for the image. Included are the image
+ * id, image file name, the image description (not required), {@link Product} id and a created timestamp.
+ * {@link Product} id is annotated by a @ManyToOne.
+ */
 @Entity
 public class Image {
 
