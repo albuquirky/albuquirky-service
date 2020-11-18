@@ -36,6 +36,13 @@ public class ProductService {
   public Iterable<Product> getByProfile(Profile profile) {
     return productRepository.getAllByProfileOrderByName(profile);
   }
+  public Iterable<Product> getByName(String nameFragment) {
+    return productRepository.getAllByNameContainsOrderByName(nameFragment);
+  }
+
+  public Iterable<Product> getByProfileAndName(Profile profile, String nameFragment) {
+    return productRepository.getAllByProfileAndNameContainsOrderByName(profile, nameFragment);
+  }
 
   public Optional<Product> get(long id) {
     return productRepository.findById(id);

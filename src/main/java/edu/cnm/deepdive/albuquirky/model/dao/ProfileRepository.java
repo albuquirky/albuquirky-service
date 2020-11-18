@@ -10,4 +10,6 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
   Optional<Profile> findFirstByOauth(String oauth);
 
+  Optional<Profile> getById(Long id);
+
 }

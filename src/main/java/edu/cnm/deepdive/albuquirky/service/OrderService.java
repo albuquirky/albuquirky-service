@@ -4,6 +4,7 @@ import edu.cnm.deepdive.albuquirky.model.dao.OrderRepository;
 import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Order;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class OrderService {
@@ -27,7 +28,7 @@ public class OrderService {
         .orElseThrow(NoSuchElementException::new);
   }
 
-  public<Order> OrderService(Profile profile) {
+  public List<Order> getByBuyer(Profile profile) {
     return orderRepository.getAllByBuyer(profile);
   }
 }

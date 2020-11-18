@@ -33,7 +33,15 @@ public class CommissionService {
   }
 // TODO Add a remove method using specified business logic
 
-  public List<Commission> getBySeller(Profile profile) {
-    return commissionRepository.getAllBySeller(profile);
+  public List<Commission> getBySeller(Profile seller) {
+    return commissionRepository.getAllBySellerOrderByTimestamp(seller);
+  }
+
+  public List<Commission> getWaitlist(Profile seller) {
+    return commissionRepository.findBySellerAndWaitlistPositionGreaterThanOrderByWaitlistPosition(seller, 0);
+  }
+
+  public List<Commission> getByCommissioner(Profile commissioner) {
+    return commissionRepository.findByCommissionerOrderByTimestamp(commissioner);
   }
 }

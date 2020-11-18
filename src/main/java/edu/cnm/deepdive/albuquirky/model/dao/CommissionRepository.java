@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommissionRepository extends JpaRepository<Commission, Long> {
 
-  List<Commission> getAllBySeller(Profile seller);
+  List<Commission> getAllBySellerOrderByTimestamp(Profile seller);
 
+  List<Commission> findBySellerAndWaitlistPositionGreaterThanOrderByWaitlistPosition(Profile seller, int position);
 
-//  List<Commission> getWaitlist(Profile buyer);
+  List<Commission> findByCommissionerOrderByTimestamp(Profile commissioner);
 
 }

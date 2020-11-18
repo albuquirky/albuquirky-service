@@ -32,7 +32,6 @@ public class Commission {
   private String commissionRequest;
 
   @NonNull
-  @Column(nullable = false)
   private int waitlistPosition;
 
   @ManyToOne(fetch = FetchType.EAGER)
