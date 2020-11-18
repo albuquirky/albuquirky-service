@@ -28,7 +28,7 @@ public class ProductService {
     if (!product.getProfile().getId().equals(profile.getId())) {
       // TODO throw an exception indicating access is forbidden
     }
-    // TODO explore business logic for product disabling.  Consider not deleting
+    // TODO explore business logic for product disabling.  Consider not deleting."Currently unavailable"
     productRepository.delete(product);
     return product;
   }

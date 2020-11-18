@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,8 +50,9 @@ public class Commission {
   @JoinColumn(name = "commissioner_id", nullable = false)
   private Profile commissioner;
 
-  @Column(name = "product_id")
-  private Long product;
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "product_id")
+  private Product product;
 
   public Long getId() {
     return id;
@@ -95,12 +97,11 @@ public class Commission {
     this.commissioner = commissioner;
   }
 
-  public Long getProduct() {
+  public Product getProduct() {
     return product;
   }
 
-  public void setProduct(Long product) {
+  public void setProduct(Product product) {
     this.product = product;
   }
-
 }
