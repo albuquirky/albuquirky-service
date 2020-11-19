@@ -11,14 +11,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * This class handles all of the business logic for getting, putting, posting, and deleting items
+ * from the {@link Commission} on behalf of the {@link CommissionService} class, using methods from
+ *  the {@link CommissionRepository} interface.
  */
 @Service
 public class CommissionService {
 
+  /**
+   * Field to store the instance of {@link CommissionRepository}.
+   */
   private final CommissionRepository commissionRepository;
+
+  /**
+   * Field to store the instance of {@link ProfileRepository}.
+   */
   private final ProfileRepository profileRepository;
 
+
+  /**
+   * Constructor for the instances of {@link CommissionRepository} and {@link ProfileRepository}.
+   *
+   * @param commissionRepository is an instance of {@link CommissionRepository} to be initialized.
+   * @param profileRepository is an instance of {@link ProfileRepository} to be initialized.
+   */
   @Autowired
   public CommissionService(CommissionRepository commissionRepository,
       ProfileRepository profileRepository) {
@@ -26,10 +42,21 @@ public class CommissionService {
     this.profileRepository = profileRepository;
   }
 
+  /**
+   * Method to save an entire {@link Commission}.
+   *
+   * @param commission is an instance of {@link Commission} to be saved.
+   */
   public Commission save(Commission commission) {
     return commissionRepository.save(commission);
   }
 
+  /**
+   * Method to save the seller and commissioner on a {@link Commission}.
+   *
+   * @param commission is an instance of {@link Commission}.
+   * @param profile is an instance of {@link Profile} representing the commissioned party.
+   */
   public Commission save(Commission commission, Profile profile) {
     return profileRepository.findById(commission.getSeller().getId())
         .map((seller) -> {
@@ -41,18 +68,36 @@ public class CommissionService {
   }
 // TODO Add a remove method using specified business logic
 
+  /**
+   * The image file name
+   */
   public Optional<Commission> get(long id) {
     return commissionRepository.findById(id);
   }
 
+  /**
+   * Method to return a list of (@link Commission} by the commissioned party, ordered by timestamp.
+   *
+   * @param seller is an instance of {@link Profile} representing the commissioned party.
+   */
   public List<Commission> getBySeller(Profile seller) {
     return commissionRepository.getAllBySellerOrderByTimestamp(seller);
   }
 
+  /**
+   * Method to return a truncated list of {@link Commission} representing the user's waitlist.
+   *
+   * @param seller is an instance of {@link Profile} representing the commissioned party.
+   */
   public List<Commission> getWaitlist(Profile seller) {
     return commissionRepository.findBySellerAndWaitlistPositionGreaterThanOrderByWaitlistPosition(seller, 0);
   }
 
+  /**
+   * Method to return a list of {@link Commission} by the commissioning party, ordered by timestamp.
+   *
+   * @param commissioner is an instance of {@link Profile} representing the commissioning party.
+   */
   public List<Commission> getByCommissioner(Profile commissioner) {
     return commissionRepository.findByCommissionerOrderByTimestamp(commissioner);
   }

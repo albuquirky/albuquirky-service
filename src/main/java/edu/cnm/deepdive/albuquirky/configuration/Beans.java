@@ -12,7 +12,7 @@ public class Beans {
 
   /**
    * This method provides a new instance of Random.
-   * @return {@code Random}
+   * @return new instance of Random.
    */
   @Bean
   public Random basicRandom() {

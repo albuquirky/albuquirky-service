@@ -48,7 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   /**
    * Constructor for the {@code SecurityConfiguration} class. It sets the reference to the
    * {@code ProfileService} for the field.
-   * @param profileService
+   *
+   * @param profileService is an instance of {@link ProfileService}.
    */
   @Autowired
   public SecurityConfiguration(ProfileService profileService) {
