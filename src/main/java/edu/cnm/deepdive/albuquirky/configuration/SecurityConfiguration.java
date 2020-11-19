@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
 /**
- * TODO
+ * TODO doc
  */
 @Configuration
 @EnableWebSecurity
@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private String clientId;
 
   /**
-   * TODO
+   * TODO doc
    * @param profileService
    */
   @Autowired
@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   *
+   * TODO doc
    * Json Web Token decoder
    * @return decoded JWT
    */

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO
+ * TODO doc
  */
 @RestController
 @RequestMapping("/profiles")
@@ -20,7 +20,7 @@ public class ProfileController {
   private final ProfileService profileService;
 
   /**
-   * TODO
+   * TODO doc
    * @param profileService
    */
   public ProfileController(ProfileService profileService) {
@@ -28,7 +28,7 @@ public class ProfileController {
   }
 
   /**
-   * TODO
+   * TODO doc
    * @param auth
    * @return
    */

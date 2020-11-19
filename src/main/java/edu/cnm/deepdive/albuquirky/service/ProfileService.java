@@ -12,13 +12,17 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 /**
- * TODO
+ * TODO doc
  */
 @Service
 public class ProfileService implements Converter<Jwt, UsernamePasswordAuthenticationToken> {
 
   private final ProfileRepository profileRepository;
 
+  /**
+   * TODO doc
+   * @param profileRepository
+   */
   @Autowired
   public ProfileService(ProfileRepository profileRepository) {
     this.profileRepository = profileRepository;
@@ -43,9 +47,9 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
   }
 
   /**
-   * TODO
-   * @param jwt
-   * @return
+   * TODO doc
+   * @param jwt- Jwt
+   * @return new UsernamePasswordAuthenticationToken
    */
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {

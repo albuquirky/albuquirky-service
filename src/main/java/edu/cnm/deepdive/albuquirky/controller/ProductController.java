@@ -5,7 +5,7 @@ import edu.cnm.deepdive.albuquirky.service.ProductService;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO
+ * TODO doc
  */
 @RestController
 public class ProductController {
@@ -13,7 +13,7 @@ public class ProductController {
   private final ProductService productService;
 
   /**
-   * TODO
+   * TODO doc
    * @param productService
    */
   public ProductController(ProductService productService) {
