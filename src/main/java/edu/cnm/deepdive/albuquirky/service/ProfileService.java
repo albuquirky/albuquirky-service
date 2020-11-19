@@ -58,37 +58,37 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
 
   public Optional<Profile> findFirstByOauth(String oauth) {
     return profileRepository.findFirstByOauth(oauth);
- }
+  }
 
- public Optional<Profile> getById(Long id) {
+  public Optional<Profile> getById(Long id) {
     return profileRepository.findById(id);
- }
+  }
 
- public Optional<Profile> findByUsername(String name) {
+  public Optional<Profile> findByUsername(String name) {
     return profileRepository.findFirstByUsername(name);
- }
+  }
 
- public Optional<Profile> findByAuth(String auth) {
+  public Optional<Profile> findByAuth(String auth) {
     return profileRepository.findFirstByOauth(auth);
- }
+  }
 
- public String uploadFile(MultipartFile file, Profile profile) throws IOException {
+  public String uploadFile(MultipartFile file, Profile profile) throws IOException {
     String fileExtension = getFileExtension(file);
     String fileName = getRandomString();
     String newFileName = fileName + fileExtension;
-   Files.copy(file.getInputStream(), uploadRoot.resolve(newFileName));
-   profile.setImage(newFileName);
-   profileRepository.save(profile);
-   return newFileName;
- }
+    Files.copy(file.getInputStream(), uploadRoot.resolve(newFileName));
+    profile.setImage(newFileName);
+    profileRepository.save(profile);
+    return newFileName;
+  }
 
- private String getFileExtension(MultipartFile file) {
+  private String getFileExtension(MultipartFile file) {
     String fileName = file.getOriginalFilename();
     return fileName.substring(fileName.lastIndexOf('.'));
- }
+  }
 
- private String getRandomString() {
+  private String getRandomString() {
     return String.format("%d-%d", System.currentTimeMillis(), rng.nextInt(1_000_000));
- }
+  }
 
 }
