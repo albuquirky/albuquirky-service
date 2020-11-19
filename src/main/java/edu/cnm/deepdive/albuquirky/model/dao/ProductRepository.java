@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * The ProductRepository interface // gets all
+ * The ProductRepository interface extends {@link JpaRepository}. The interface handles the queries
+ * for a product
  */
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
