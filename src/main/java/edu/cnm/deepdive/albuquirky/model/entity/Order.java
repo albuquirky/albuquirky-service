@@ -20,6 +20,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the Order Entity class, which declares the attributes needed for orders. Those include
+ * the order ID, a timestamp when the order was placed and buyer ID which is annotated by a ManyToOne
+ * from {@link Profile}. A OneToMany annotation for items on order which returns a list of items on
+ * order coming from {@link ProductOnOrder}.
+ */
 @Entity
 @Table(name = "placed_order")
 public class Order {
