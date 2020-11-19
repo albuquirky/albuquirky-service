@@ -3,6 +3,7 @@ package edu.cnm.deepdive.albuquirky.service;
 import edu.cnm.deepdive.albuquirky.model.dao.CommissionRepository;
 import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.cnm.deepdive.albuquirky.model.entity.Commission;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
@@ -33,6 +34,10 @@ public class CommissionService {
   }
 // TODO Add a remove method using specified business logic
 
+  public Optional<Commission> get(long id) {
+    return commissionRepository.findById(id);
+  }
+
   public List<Commission> getBySeller(Profile seller) {
     return commissionRepository.getAllBySellerOrderByTimestamp(seller);
   }
@@ -44,4 +49,5 @@ public class CommissionService {
   public List<Commission> getByCommissioner(Profile commissioner) {
     return commissionRepository.findByCommissionerOrderByTimestamp(commissioner);
   }
+
 }

@@ -15,7 +15,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,6 +64,14 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
     return profileRepository.findById(id);
  }
 
+ public Optional<Profile> findByUsername(String name) {
+    return profileRepository.findFirstByUsername(name);
+ }
+
+ public Optional<Profile> findByAuth(String auth) {
+    return profileRepository.findFirstByOauth(auth);
+ }
+
  public String uploadFile(MultipartFile file, Profile profile) throws IOException {
     String fileExtension = getFileExtension(file);
     String fileName = getRandomString();
@@ -83,4 +90,5 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
  private String getRandomString() {
     return String.format("%d-%d", System.currentTimeMillis(), rng.nextInt(1_000_000));
  }
+
 }

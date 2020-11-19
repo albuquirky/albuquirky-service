@@ -6,6 +6,7 @@ import edu.cnm.deepdive.albuquirky.model.entity.Order;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class OrderService {
 
@@ -28,7 +29,12 @@ public class OrderService {
         .orElseThrow(NoSuchElementException::new);
   }
 
+  public Optional<Order> get(long id) {
+    return orderRepository.findById(id);
+  }
+
   public List<Order> getByBuyer(Profile profile) {
     return orderRepository.getAllByBuyerOrderByPlacedDate(profile);
   }
+
 }

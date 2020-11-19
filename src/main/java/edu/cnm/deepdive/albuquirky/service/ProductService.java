@@ -6,7 +6,6 @@ import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.spring5.processor.SpringOptionFieldTagProcessor;
 
 @Service
 public class ProductService {
@@ -33,6 +32,10 @@ public class ProductService {
     return product;
   }
 
+  public Optional<Product> get(long id) {
+    return productRepository.findById(id);
+  }
+
   public Iterable<Product> getByProfile(Profile profile) {
     return productRepository.getAllByProfileOrderByName(profile);
   }
@@ -44,8 +47,4 @@ public class ProductService {
     return productRepository.getAllByProfileAndNameContainsOrderByName(profile, nameFragment);
   }
 
-  public Optional<Product> get(long id) {
-    return productRepository.findById(id);
-  }
-  
 }
