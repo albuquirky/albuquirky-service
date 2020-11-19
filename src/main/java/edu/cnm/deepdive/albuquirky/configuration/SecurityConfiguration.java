@@ -1,15 +1,10 @@
 package edu.cnm.deepdive.albuquirky.configuration;
 
 import edu.cnm.deepdive.albuquirky.service.ProfileService;
-import java.util.List;
-import java.beans.BeanProperty;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.beans.BeanProperty;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,22 +20,34 @@ import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
 /**
- * TODO doc
+ * The SecurityConfiguration class handles the security for the AlbuQuirky web server application
+ * by checking the credentials for the web server match the Google Cloud credentials for the
+ * project.
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+  /**
+   * Field for the {@link ProfileService} reference.
+   */
   private final ProfileService profileService;
 
+  /**
+   * Field for the issuer URI from the Google Cloud service.
+   */
   @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
   private String issuerUri;
 
+  /**
+   * Field for the client ID from the Google Cloud service.
+   */
   @Value("${spring.security.oauth2.resourceserver.jwt.client-id}")
   private String clientId;
 
   /**
-   * TODO doc
+   * Constructor for the {@code SecurityConfiguration} class. It sets the reference to the
+   * {@code ProfileService} for the field.
    * @param profileService
    */
   @Autowired
@@ -58,8 +65,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * TODO doc
-   * Json Web Token decoder
+   * This method validates the JWT token received from the Google Cloud service, and returns a
+   * {@code JwtDecoder} object.
+   *
    * @return decoded JWT
    */
   @BeanProperty
