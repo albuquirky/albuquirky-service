@@ -36,7 +36,7 @@ public class ProductController {
   }
 
   /**
-   * The Get method which returns products matching a
+   * The Get method which returns all products
    * @return
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,6 +44,11 @@ public class ProductController {
     return productService.getAll();
   }
 
+  /**
+   * The Get method which returns a product matching a keyword
+   * @param keyword
+   * @return
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "keyword")
   public Iterable<Product> getProductsMatchingKeyword(@RequestParam String keyword) {
     return productService.getByName(keyword);
@@ -59,6 +64,12 @@ public class ProductController {
     return productService.getByProfile(getAuthProfile(auth));
   }
 
+  /**
+   * The Post method which lets a profile post a product.
+   * @param product
+   * @param auth
+   * @return
+   */
   @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public Product post(@RequestBody Product product, Authentication auth) {
