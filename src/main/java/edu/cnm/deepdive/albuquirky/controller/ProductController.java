@@ -9,7 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +36,16 @@ public class ProductController {
   }
 
   /**
-   * The Get method which returns products matching a keyword
-   * @param keyword
+   * The Get method which returns products matching a
    * @return
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Product> getProductsMatchingKeyword(@PathVariable String keyword) {
+  public Iterable<Product> getAllProducts() {
+    return productService.getAll();
+  }
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "keyword")
+  public Iterable<Product> getProductsMatchingKeyword(@RequestParam String keyword) {
     return productService.getByName(keyword);
   }
 
@@ -48,12 +54,17 @@ public class ProductController {
    * @param auth
    * @return
    */
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Product> getProductsWhereSelling(Authentication auth) {
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = {"mine"})
+  public Iterable<Product> getProductsWhereSelling(@RequestParam boolean mine, Authentication auth) {
     return productService.getByProfile(getAuthProfile(auth));
   }
 
-  // TODO: POST
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public Product post(@RequestBody Product product, Authentication auth) {
+    product.setProfile(getAuthProfile(auth));
+    return productService.save(product);
+  }
 
   /**
    * The Get method which returns a product from a product id
@@ -79,15 +90,13 @@ public class ProductController {
   }
 
   /**
-   * The Put method which updates the name of a product
-   * @param name
-   * @param productId
-   * @return
+   * TODO
    */
   @PutMapping(value = "/{productId:\\d+}/name",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public String updateName(
-      @RequestParam String name, @PathVariable long productId) {
+      @RequestBody String name, @PathVariable long productId) {
     Product product = getProduct(productId);
     product.setName(name);
     return productService.save(product).getName();
@@ -106,14 +115,12 @@ public class ProductController {
   }
 
   /**
-   * The Put method which updates the description of a product
-   * @param description
-   * @param productId
-   * @return
+   * TODO
    */
   @PutMapping(value = "/{productId:\\d+}/description",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String updateDescription(@RequestParam String description, @PathVariable long productId) {
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public String updateDescription(@RequestBody String description, @PathVariable long productId) {
     Product product = getProduct(productId);
     product.setDescription(description);
     return productService.save(product).getDescription();
@@ -138,9 +145,10 @@ public class ProductController {
    * @return
    */
   @PutMapping(value = "/{productId:\\d+}/price",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public int updatePrice(
-      @RequestParam int price, @PathVariable long productId) {
+      @RequestBody int price, @PathVariable long productId) {
     Product product = getProduct(productId);
     product.setPrice(price);
     return productService.save(product).getPrice();
@@ -165,9 +173,10 @@ public class ProductController {
    * @return
    */
   @PutMapping(value = "/{productId:\\d+}/stock",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public int updateStock(
-      @RequestParam int stock, @PathVariable long productId) {
+      @RequestBody int stock, @PathVariable long productId) {
     Product product = getProduct(productId);
     product.setStock(stock);
     return productService.save(product).getStock();

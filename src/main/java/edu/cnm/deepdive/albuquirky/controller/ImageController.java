@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,8 +83,9 @@ public class ImageController {
    * @return
    */
   @PutMapping(value = "/{imageId:\\d+}/description",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String updateDescription(@RequestParam String description, @PathVariable long imageId) {
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public String updateDescription(@RequestBody String description, @PathVariable long imageId) {
     Image image = getImage(imageId);
     image.setImageDescription(description);
     return imageService.save(image).getImageDescription();

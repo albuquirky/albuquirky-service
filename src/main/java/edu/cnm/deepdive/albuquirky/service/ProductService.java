@@ -3,6 +3,7 @@ package edu.cnm.deepdive.albuquirky.service;
 import edu.cnm.deepdive.albuquirky.model.dao.ProductRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Product;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
+import java.security.InvalidKeyException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class ProductService {
     if (!product.getProfile().getId().equals(profile.getId())) {
       // TODO throw an exception indicating access is forbidden
     }
-    // TODO explore business logic for product disabling.  Consider not deleting
+    // TODO explore business logic for product disabling.  Consider not deleting."Currently unavailable"
     productRepository.delete(product);
     return product;
   }
@@ -43,6 +44,7 @@ public class ProductService {
   public Iterable<Product> getByProfile(Profile profile) {
     return productRepository.getAllByProfileOrderByName(profile);
   }
+
   public Iterable<Product> getByName(String nameFragment) {
     return productRepository.getAllByNameContainsOrderByName(nameFragment);
   }
@@ -50,5 +52,9 @@ public class ProductService {
   public Iterable<Product> getByProfileAndName(Profile profile, String nameFragment) {
     return productRepository.getAllByProfileAndNameContainsOrderByName(profile, nameFragment);
   }
-  
+
+  public Iterable<Product> getAll() {
+    return productRepository.findAll();
+  }
+
 }
