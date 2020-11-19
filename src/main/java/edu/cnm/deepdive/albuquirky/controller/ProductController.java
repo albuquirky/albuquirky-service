@@ -100,6 +100,12 @@ public class ProductController {
     return product.getName();
   }
 
+  /**
+   * The Put method which updates a product name
+   * @param name
+   * @param productId
+   * @return
+   */
   @PutMapping(value = "/{productId:\\d+}/name",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
@@ -123,7 +129,10 @@ public class ProductController {
   }
 
   /**
-   * TODO
+   * The Put method which updates the description of a product
+   * @param description
+   * @param productId
+   * @return
    */
   @PutMapping(value = "/{productId:\\d+}/description",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
