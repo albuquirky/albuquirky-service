@@ -28,33 +28,50 @@ import org.springframework.lang.NonNull;
 @Table(indexes = {@Index(columnList = "waitlistPosition")})
 public class Commission {
 
+  /**
+   * The Primary Key for the class.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "commission_id", nullable = false, updatable = false)
   private Long id;
-
+  /**
+   * A commission request
+   */
   @NonNull
   @Column(length = 200, nullable = false)
   private String commissionRequest;
-
+  /**
+   * The waitlist postion for a commission
+   */
   @NonNull
   private int waitlistPosition;
-
+  /**
+   * The ManyToOne side of the relationship between {@link Commission} and {@link Profile}. This is
+   * is the seller of the commission.
+   */
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "seller_id")
   private Profile seller;
-
+  /**
+   * Date timestamp for the commission
+   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date timestamp;
-
+  /**
+   * The ManyToOne side of the relationship between {@link Commission} and {@link Profile}. This is
+   * is the buyer of the commission.
+   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "commissioner_id", nullable = false)
   private Profile commissioner;
-
+  /**
+   *
+   */
   @Column(name = "product_id")
   private Long product;
 
@@ -67,8 +84,7 @@ public class Commission {
   }
 
   /**
-   * Gets {@link Commission#commissionRequest}
-   * @return commissionRequest
+   * Returns {@link Commission#commissionRequest}
    */
   @NonNull
   public String getCommissionRequest() {
@@ -84,8 +100,7 @@ public class Commission {
   }
 
   /**
-   * Gets {@link Commission#waitlistPosition}
-   * @return waitlistPosition
+   * Returns {@link Commission#waitlistPosition}
    */
   public int getWaitlistPosition() {
     return waitlistPosition;
@@ -142,8 +157,7 @@ public class Commission {
   }
 
   /**
-   *
-   * @return product
+   * Returns product
    */
   public Long getProduct() {
     return product;

@@ -25,48 +25,72 @@ import org.springframework.lang.NonNull;
 @Entity
 public class Profile {
 
+  /**
+   * The Primary Key for the class.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "profile_id", nullable = false, updatable = false)
   private Long id;
-
+  /**
+   * The profile's username
+   */
   @NonNull
   @Column(unique = true, nullable = false)
   private String username;
-
+  /**
+   * The profile's email
+   */
   @NonNull
   @Column(unique = true, nullable = false)
   private String email;
-
+  /**
+   * The profile's image
+   */
   @Column(unique = true)
   private String image;
-
+  /**
+   * The profile's address
+   */
   private String address;
-
+  /**
+   * The profile's OAuth key from Google Sign-in
+   */
   @NonNull
   @Column(unique = true, nullable = false, updatable = false)
   private String oauth;
-
+  /**
+   * The OneToMany side of the relationship between {@link Order} and {@link Profile} for a list of
+   * orders associated with a profile.
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("placedDate DESC")
   @JsonIgnore
   private final List<Order> orders = new LinkedList<>();
-
+  /**
+   * The OneToMany side of the relationship between {@link Product} and {@link Profile} for a list
+   * of products associated with a profile.
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
   @OrderBy("name DESC")
   @JsonIgnore
   private final List<Product> products = new LinkedList<>();
-
+  /**
+   * The OneToMany side of the relationship between {@link Commission} and {@link Profile} for a
+   * list of commissions selling
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
   @JsonIgnore
   private final List<Commission> commissionsSelling = new LinkedList<>();
-
+  /**
+   * The OneToMany side of the relationship between {@link Commission} and {@link Profile}
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
@@ -97,7 +121,7 @@ public class Profile {
   }
 
   /**
-   * Gets the {@link Profile#email}
+   * Returns {@link Profile#email}
    */
   @NonNull
   public String getEmail() {

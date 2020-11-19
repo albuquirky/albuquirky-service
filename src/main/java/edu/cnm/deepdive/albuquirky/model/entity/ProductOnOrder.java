@@ -17,32 +17,44 @@ import org.springframework.lang.NonNull;
 @Entity
 public class ProductOnOrder {
 
+  /**
+   * The Primary Key for the class.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "product_on_order_id", nullable = false, updatable = false)
   private Long id;
-
+  /**
+   * This is the ManyToOne side of the of the relationship between {@link Product} and
+   * {@link ProductOnOrder}.
+   */
   @NonNull
   @ManyToOne
   @JoinColumn(name = "product_id", nullable = false, updatable = false)
   private Product product;
-
+  /**
+   * This is the ManyToOne side of the of the relationship between {@link Order} and
+   * {@link ProductOnOrder}.
+   */
   @NonNull
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false, updatable = false)
   private Order order;
-
+  /**
+   * The item quantity for product on order
+   */
   @NonNull
   @Column(updatable = false, nullable = false)
   private int itemQuantity;
-
+  /**
+   * Unit price for a product on order
+   */
   @NonNull
   @Column(updatable = false, nullable = false)
   private int unitPrice;
 
   /**
-   * Gets {@link ProductOnOrder#id}
-   * @return id
+   * Returns {@link ProductOnOrder#id}
    */
   public Long getId() {
     return id;
@@ -50,7 +62,6 @@ public class ProductOnOrder {
 
   /**
    * Returns the {@link Product} id
-   * @return product
    */
   @NonNull
   public Product getProduct() {
@@ -66,8 +77,7 @@ public class ProductOnOrder {
   }
 
   /**
-   * Gets the {@link Order} id
-   * @return order
+   * Returns {@link Order} id
    */
   @NonNull
   public Order getOrder() {
@@ -83,8 +93,7 @@ public class ProductOnOrder {
   }
 
   /**
-   * Gets {@link ProductOnOrder#itemQuantity}
-   * @return itemQuantity
+   * Returns {@link ProductOnOrder#itemQuantity}
    */
   public int getItemQuantity() {
     return itemQuantity;
@@ -99,8 +108,7 @@ public class ProductOnOrder {
   }
 
   /**
-   * Gets {@link ProductOnOrder#unitPrice}
-   * @return unitPrice
+   * Returns {@link ProductOnOrder#unitPrice}
    */
   public int getUnitPrice() {
     return unitPrice;
