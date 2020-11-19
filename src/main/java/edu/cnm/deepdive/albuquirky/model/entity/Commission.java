@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,13 +18,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.IndexColumn;
 import org.springframework.lang.NonNull;
 
-/**
- * This is the {@code Commission} entity class, which declares the attributes needed for each commission
- * which includes, the commission id, the commission request, waitlist position, the seller id,
- * a timestamp, the {@link Commission#} id and the {@link Product} id. Both seller id and commissioner
- * id are annotated by @ManyToOne coming from {@link Profile}. Commissions accepted by the commissioner
- * become {@link Product}.
- */
 @Entity
 @Table(indexes = {@Index(columnList = "waitlistPosition")})
 public class Commission {
@@ -69,11 +63,14 @@ public class Commission {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "commissioner_id", nullable = false)
   private Profile commissioner;
+
   /**
    * The id of the product which can be null
    */
-  @Column(name = "product_id")
-  private Long product;
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "product_id")
+  private Product product;
+
 
   /**
    * Returns the {@link Commission#id}
@@ -151,20 +148,18 @@ public class Commission {
   public void setCommissioner(@NonNull Profile commissioner) {
     this.commissioner = commissioner;
   }
-
   /**
    *
-   * @return product- Long
+   * @return product- Product
    */
-  public Long getProduct() {
+  public Product getProduct() {
     return product;
   }
-
   /**
    * Sets
-   * @param product- Long
+   * @param product- Product
    */
-  public void setProduct(Long product) {
+  public void setProduct(Product product) {
     this.product = product;
   }
 

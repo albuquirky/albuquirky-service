@@ -6,11 +6,7 @@ import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.spring5.processor.SpringOptionFieldTagProcessor;
 
-/**
- * TODO doc
- */
 @Service
 public class ProductService {
 
@@ -21,24 +17,16 @@ public class ProductService {
     this.productRepository = productRepository;
   }
 
-  /**
-   * TODO doc
-   * @param product
-   * @param profile
-   * @return
-   */
+  public Product save(Product product) {
+    return productRepository.save(product);
+  }
+
   public Product save(Product product, Profile profile) {
     product.setProfile(profile);
     // TODO validate product info.
     return productRepository.save(product);
   }
 
-  /**
-   * TODO doc
-   * @param product
-   * @param profile
-   * @return
-   */
   public Product remove(Product product, Profile profile) {
     if (!product.getProfile().getId().equals(profile.getId())) {
       // TODO throw an exception indicating access is forbidden
@@ -48,22 +36,19 @@ public class ProductService {
     return product;
   }
 
-  /**
-   * TODO doc
-   * @param profile
-   * @return
-   */
+  public Optional<Product> get(long id) {
+    return productRepository.findById(id);
+  }
+
   public Iterable<Product> getByProfile(Profile profile) {
     return productRepository.getAllByProfileOrderByName(profile);
   }
+  public Iterable<Product> getByName(String nameFragment) {
+    return productRepository.getAllByNameContainsOrderByName(nameFragment);
+  }
 
-  /**
-   * Getting an Optional {@link Product}
-   * @param id
-   * @return {@link ProductRepository} id
-   */
-  public Optional<Product> get(long id) {
-    return productRepository.findById(id);
+  public Iterable<Product> getByProfileAndName(Profile profile, String nameFragment) {
+    return productRepository.getAllByProfileAndNameContainsOrderByName(profile, nameFragment);
   }
   
 }
