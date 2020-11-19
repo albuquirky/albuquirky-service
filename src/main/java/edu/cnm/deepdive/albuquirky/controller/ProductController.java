@@ -89,9 +89,6 @@ public class ProductController {
     return product.getName();
   }
 
-  /**
-   * TODO
-   */
   @PutMapping(value = "/{productId:\\d+}/name",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
