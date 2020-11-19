@@ -53,7 +53,7 @@ public class ImageService {
   }
 
   /**
-   *
+   * Method to get a specific image.
    * @param id
    * @return
    */
