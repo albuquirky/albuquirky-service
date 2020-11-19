@@ -19,6 +19,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
+/**
+ * TODO
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -31,6 +34,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Value("${spring.security.oauth2.resourceserver.jwt.client-id}")
   private String clientId;
 
+  /**
+   * TODO
+   * @param profileService
+   */
   @Autowired
   public SecurityConfiguration(ProfileService profileService) {
     this.profileService = profileService;
@@ -45,6 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .jwtAuthenticationConverter(profileService);
   }
 
+  /**
+   *
+   * Json Web Token decoder
+   * @return decoded JWT
+   */
   @BeanProperty
   public JwtDecoder jwtDecoder(){
     NimbusJwtDecoder decoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuerUri);

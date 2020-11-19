@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * TODO
+ */
 @RestController
 @RequestMapping("/profiles")
 @ExposesResourceFor(Profile.class)
@@ -16,10 +19,19 @@ public class ProfileController {
 
   private final ProfileService profileService;
 
+  /**
+   * TODO
+   * @param profileService
+   */
   public ProfileController(ProfileService profileService) {
     this.profileService = profileService;
   }
 
+  /**
+   * TODO
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public Profile me(Authentication auth) {
     return (Profile) auth.getPrincipal();

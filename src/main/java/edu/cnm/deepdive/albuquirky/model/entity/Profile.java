@@ -14,6 +14,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the {@code Profile} entity class which declares which attributes are needed for each profile which
+ * includes, {@link Profile#id}, {@link Profile#username}, password, email and oauth. The profile
+ * image and address are both not required. Profile is on the OneToMany side from {@link Commission}
+ * which has lists of commission requests and commissions selling. Also {@link Product} has a
+ * list of {@link Profile#products}.
+ *
+ */
 @Entity
 public class Profile {
 
@@ -65,68 +73,122 @@ public class Profile {
   @JsonIgnore
   private final List<Commission> commissionsRequested = new LinkedList<>();
 
+  /**
+   * Returns {@link Profile#id}
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * Returns {@link Profile#username}
+   */
   @NonNull
   public String getUsername() {
     return username;
   }
 
+  /**
+   * Sets the {@link Profile#username}
+   * @param username String
+   */
   public void setUsername(@NonNull String username) {
     this.username = username;
   }
 
+  /**
+   * Gets the {@link Profile#email}
+   */
   @NonNull
   public String getEmail() {
     return email;
   }
 
+  /**
+   * Sets the email
+   * @param email String
+   */
   public void setEmail(@NonNull String email) {
     this.email = email;
   }
 
+  /**
+   *  Returns {@link Profile#image}
+   */
   public String getImage() {
     return image;
   }
 
+  /**
+   * Sets {@link Profile#image}
+   * @param image String
+   */
   public void setImage(String image) {
     this.image = image;
   }
 
+  /**
+   * Returns {@link Profile#address}
+   */
   public String getAddress() {
     return address;
   }
 
+  /**
+   * Sets the {@link Profile#address}
+   * @param address String
+   */
   public void setAddress(String address) {
     this.address = address;
   }
 
+  /**
+   * Returns the Profile's OAuth 2.0
+   */
   @NonNull
   public String getOauth() {
     return oauth;
   }
 
+  /**
+   * Sets the OAuth 2.0
+   * @param oauth- String
+   */
   public void setOauth(@NonNull String oauth) {
     this.oauth = oauth;
   }
 
+  /**
+   *
+   * @return List of orders
+   */
   @NonNull
   public List<Order> getOrders() {
     return orders;
   }
 
+  /**
+   *
+   * @return List of products
+   */
   @NonNull
   public List<Product> getProducts() {
     return products;
   }
 
+  /**
+   *
+   * @return List of commissions selling
+   */
   @NonNull
   public List<Commission> getCommissionsSelling() {
     return commissionsSelling;
   }
 
+  /**
+   *
+   * @return List of commissions requested
+   */
   @NonNull
   public List<Commission> getCommissionsRequested() {
     return commissionsRequested;

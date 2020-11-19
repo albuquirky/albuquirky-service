@@ -38,7 +38,6 @@ public class Commission {
   private String commissionRequest;
 
   @NonNull
-  @Column(nullable = false)
   private int waitlistPosition;
 
   @ManyToOne(fetch = FetchType.EAGER)
@@ -59,53 +58,101 @@ public class Commission {
   @Column(name = "product_id")
   private Long product;
 
+  /**
+   * Gets {@link Commission#id}
+   * @return id
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * Gets {@link Commission#commissionRequest}
+   * @return commissionRequest
+   */
   @NonNull
   public String getCommissionRequest() {
     return commissionRequest;
   }
 
+  /**
+   * Sets the {@link Commission#commissionRequest}
+   * @param commissionRequest- String
+   */
   public void setCommissionRequest(@NonNull String commissionRequest) {
     this.commissionRequest = commissionRequest;
   }
 
+  /**
+   * Gets {@link Commission#waitlistPosition}
+   * @return waitlistPosition
+   */
   public int getWaitlistPosition() {
     return waitlistPosition;
   }
 
+  /**
+   * Sets the {@link Commission#waitlistPosition}
+   * @param waitlistPosition- int
+   */
   public void setWaitlistPosition(int waitlistPosition) {
     this.waitlistPosition = waitlistPosition;
   }
 
+  /**
+   * Gets {@link Profile} id of the seller.
+   * @return seller
+   */
   public Profile getSeller() {
     return seller;
   }
 
+  /**
+   * Sets {}
+   * @param seller- Profile
+   */
   public void setSeller(Profile seller) {
     this.seller = seller;
   }
 
+  /**
+   *
+   * @return Date timestamp
+   */
   @NonNull
   public Date getTimestamp() {
     return timestamp;
   }
 
+  /**
+   * Getter for commissioner
+   * @return commissioner
+   */
   @NonNull
   public Profile getCommissioner() {
     return commissioner;
   }
 
+  /**
+   * Setter of the commissioner
+    * @param commissioner {@link Profile}
+   */
   public void setCommissioner(@NonNull Profile commissioner) {
     this.commissioner = commissioner;
   }
 
+  /**
+   *
+   * @return product
+   */
   public Long getProduct() {
     return product;
   }
 
+  /**
+   *
+   * @param product- Long
+   */
   public void setProduct(Long product) {
     this.product = product;
   }

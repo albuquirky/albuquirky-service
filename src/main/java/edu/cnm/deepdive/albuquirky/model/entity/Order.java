@@ -20,6 +20,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * This is the {@code Order} entity class, which declares the attributes needed for orders. Those include
+ * the {@link Order#id}, a {@link Order#placedDate} and buyer id which is annotated by a @ManyToOne
+ * from {@link Profile}. A @OneToMany annotation for items on order which returns a list of items
+ * on order coming from {@link ProductOnOrder}.
+ */
 @Entity
 @Table(name = "placed_order")
 public class Order {
@@ -48,24 +54,44 @@ public class Order {
   @OrderBy("itemQuantity DESC")
   private final List<ProductOnOrder> itemsOnOrder = new LinkedList<>();
 
+  /**
+   * Gets {@link Order#id}
+   * @return id
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * Gets {@link Order#placedDate}
+   * @return placedDate
+   */
   @NonNull
   public Date getPlacedDate() {
     return placedDate;
   }
 
+  /**
+   * Gets {@link Order#buyer}
+   * @return buyer
+   */
   @NonNull
   public Profile getBuyer() {
     return buyer;
   }
 
+  /**
+   * Sets {@link Order#buyer}
+   * @param buyer- Profile
+   */
   public void setBuyer(@NonNull Profile buyer) {
     this.buyer = buyer;
   }
 
+  /**
+   *
+   * @return List of itemsOnOrder
+   */
   @NonNull
   public List<ProductOnOrder> getItemsOnOrder() {
     return itemsOnOrder;

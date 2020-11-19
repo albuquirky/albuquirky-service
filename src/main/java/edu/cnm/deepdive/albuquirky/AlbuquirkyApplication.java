@@ -21,6 +21,10 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 @SpringBootApplication
 public class AlbuquirkyApplication {
 
+  /**
+   * Construct
+   * @param
+   */
   public static void main(String[] args) {
     SpringApplication.run(AlbuquirkyApplication.class, args);
   }

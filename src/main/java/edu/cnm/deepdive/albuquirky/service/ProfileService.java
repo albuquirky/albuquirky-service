@@ -11,6 +11,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+/**
+ * TODO
+ */
 @Service
 public class ProfileService implements Converter<Jwt, UsernamePasswordAuthenticationToken> {
 
@@ -21,6 +24,13 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
     this.profileRepository = profileRepository;
   }
 
+  /**
+   * getOrCreate method returns the User.
+   * @param oauth
+   * @param username
+   * @param email
+   * @return {@link ProfileRepository}
+   */
   public Profile getOrCreate(String oauth, String username, String email) {
     return profileRepository.findFirstByOauth(oauth)
         .orElseGet(() -> {
@@ -32,6 +42,11 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
         });
   }
 
+  /**
+   * TODO
+   * @param jwt
+   * @return
+   */
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
     Collection<SimpleGrantedAuthority> grants =

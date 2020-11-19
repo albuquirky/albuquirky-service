@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring5.processor.SpringOptionFieldTagProcessor;
 
+/**
+ * TODO
+ */
 @Service
 public class ProductService {
 
@@ -18,12 +21,24 @@ public class ProductService {
     this.productRepository = productRepository;
   }
 
+  /**
+   * TODO
+   * @param product
+   * @param profile
+   * @return
+   */
   public Product save(Product product, Profile profile) {
     product.setProfile(profile);
     // TODO validate product info.
     return productRepository.save(product);
   }
 
+  /**
+   * TODO
+   * @param product
+   * @param profile
+   * @return
+   */
   public Product remove(Product product, Profile profile) {
     if (!product.getProfile().getId().equals(profile.getId())) {
       // TODO throw an exception indicating access is forbidden
@@ -33,10 +48,20 @@ public class ProductService {
     return product;
   }
 
+  /**
+   * TODO
+   * @param profile
+   * @return
+   */
   public Iterable<Product> getByProfile(Profile profile) {
     return productRepository.getAllByProfileOrderByName(profile);
   }
 
+  /**
+   * Getting an Optional {@link Product}
+   * @param id
+   * @return {@link ProductRepository} id
+   */
   public Optional<Product> get(long id) {
     return productRepository.findById(id);
   }

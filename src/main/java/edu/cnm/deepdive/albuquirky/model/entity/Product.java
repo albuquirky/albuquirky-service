@@ -72,62 +72,118 @@ public class Product {
   @OrderBy("itemQuantity DESC")
   private final List<ProductOnOrder> orderItems = new LinkedList<>();
 
+  /**
+   * Gets the {@link Product#id}
+   * @return id
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * Gets the {@link Product#name}
+   * @return name
+   */
   @NonNull
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets {@link Product#name}
+   * @param name- String
+   */
   public void setName(@NonNull String name) {
     this.name = name;
   }
 
+  /**
+   * Gets {@link Product#description}
+   * @return description
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Sets {@link Product#description}
+   * @param description- String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * Gets the {@link Product#price}
+   * @return price
+   */
   public int getPrice() {
     return price;
   }
 
+  /**
+   * Sets {@link Product#price}
+   * @param price- int
+   */
   public void setPrice(int price) {
     this.price = price;
   }
 
+  /**
+   * Gets {@link Product#stock}
+   * @return stock
+   */
   public int getStock() {
     return stock;
   }
 
+  /**
+   * Sets {@link Product#stock}
+   * @param stock- int
+   */
   public void setStock(int stock) {
     this.stock = stock;
   }
 
+  /**
+   * Gets {@link Product#postedDate}
+   * @return postedDate
+   */
   @NonNull
   public Date getPostedDate() {
     return postedDate;
   }
 
+  /**
+   * Gets {@link Profile}
+   * @return profile
+   */
   @NonNull
   public Profile getProfile() {
     return profile;
   }
 
+  /**
+   * Sets {@link Profile}
+   * @param profile- Profile
+   */
   public void setProfile(@NonNull Profile profile) {
     this.profile = profile;
   }
 
+  /**
+   *
+   * @return List of productImages
+   */
   @NonNull
   public List<Image> getProductImages() {
     return productImages;
   }
 
+  /**
+   *
+   * @return List of orderItems
+   */
   @NonNull
   public List<ProductOnOrder> getOrderItems() {
     return orderItems;
