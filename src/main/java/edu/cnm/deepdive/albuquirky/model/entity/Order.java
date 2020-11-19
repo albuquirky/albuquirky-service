@@ -46,8 +46,6 @@ public class Order {
   @Column(nullable = false)
   private Date placedDate;
 
-
-  // TODO: Change to match column name in ERD.
   /**
    * The ManyToOne side of the relationship between {@link Profile} and {@link Order}, the order's
    * buyer.
