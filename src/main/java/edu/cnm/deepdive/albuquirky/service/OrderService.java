@@ -29,6 +29,6 @@ public class OrderService {
   }
 
   public List<Order> getByBuyer(Profile profile) {
-    return orderRepository.getAllByBuyer(profile);
+    return orderRepository.getAllByBuyerOrderByPlacedDate(profile);
   }
 }

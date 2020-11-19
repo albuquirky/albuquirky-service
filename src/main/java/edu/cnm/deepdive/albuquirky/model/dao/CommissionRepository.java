@@ -3,9 +3,12 @@ package edu.cnm.deepdive.albuquirky.model.dao;
 import edu.cnm.deepdive.albuquirky.model.entity.Commission;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommissionRepository extends JpaRepository<Commission, Long> {
+
+  Optional<Commission> getById(Long id);
 
   List<Commission> getAllBySellerOrderByTimestamp(Profile seller);
 

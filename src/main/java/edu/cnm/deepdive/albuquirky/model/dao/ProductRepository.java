@@ -2,9 +2,13 @@ package edu.cnm.deepdive.albuquirky.model.dao;
 
 import edu.cnm.deepdive.albuquirky.model.entity.Product;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.util.pattern.PathPatternRouteMatcher;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+  Optional<Product> getById(Long id);
 
   Iterable<Product> getAllByProfileOrderByName(Profile profile);
 
