@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO doc
+ * The CommissionController class is the @RestController that maps the endpoints of "/commissions"
+ * for the communication between the server-side and client-side for {@link Commission}
  */
 @RestController
 @RequestMapping("/commissions")
@@ -27,15 +28,29 @@ public class CommissionController {
 
   private final CommissionService commissionService;
 
+  /**
+   * Constructs the instance of CommissionService object
+   * @param commissionService
+   */
   public CommissionController(CommissionService commissionService) {
     this.commissionService = commissionService;
   }
 
+  /**
+   * The Get method which returns a list of commission from seller
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/seller", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Commission> getCommissionsWhereSeller(Authentication auth) {
     return commissionService.getWaitlist(getAuthProfile(auth));
   }
 
+  /**
+   * The Get method which returns a list of commission from commissioner(buyer)
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/buyer", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Commission> getCommissionsWhereCommissioner(Authentication auth) {
     return commissionService.getByCommissioner(getAuthProfile(auth));
@@ -43,7 +58,12 @@ public class CommissionController {
 
   // TODO: POST
 
-  @GetMapping(value = "/{commissionId:[0-9a-fA-F\\-]{32,}}",
+  /**
+   * The Get method that returns the commission by commission id
+   * @param commissionId
+   * @return
+   */
+  @GetMapping(value = "/{commissionId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Commission getCommission(@PathVariable long commissionId) {
     return commissionService.get(commissionId).orElseThrow(NoSuchElementException::new);
@@ -51,14 +71,25 @@ public class CommissionController {
 
   // TODO: DELETE
 
-  @GetMapping(value = "/{commissionId:[0-9a-fA-F\\-]{32,}}/commission_request",
+  /**
+   * The Get method that returns the commission request by commission id
+   * @param commissionId
+   * @return
+   */
+  @GetMapping(value = "/{commissionId:\\d+}/commission_request",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getCommissionRequest(@PathVariable long commissionId) {
     Commission commission = getCommission(commissionId);
     return commission.getCommissionRequest();
   }
 
-  @PutMapping(value = "/{commissionId:[0-9a-fA-F\\-]{32,}}/commission_request",
+  /**
+   * The Put method which allows update to the commission request
+   * @param request
+   * @param commissionId
+   * @return
+   */
+  @PutMapping(value = "/{commissionId:\\d+}/commission_request",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public String updateCommissionRequest(
       @RequestParam String request, @PathVariable long commissionId) {

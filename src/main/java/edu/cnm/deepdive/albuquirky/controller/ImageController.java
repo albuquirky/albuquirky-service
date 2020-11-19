@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The ImageController class is the @RestController that maps the endpoints of "/images" for the
+ * communication between the server-side and client-side for {@link Image}
+ */
 @RestController
 @RequestMapping("/images")
 @ExposesResourceFor(Image.class)
@@ -23,12 +27,22 @@ public class ImageController {
   private final ImageService imageService;
   private final ProductService productService;
 
+  /**
+   * Constructs the instances of ImageService object and ProductService object
+   * @param imageService
+   * @param productService
+   */
   public ImageController(ImageService imageService, ProductService productService) {
     this.imageService = imageService;
     this.productService = productService;
   }
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}", produces = MediaType.APPLICATION_JSON_VALUE)
+  /**
+   * The Get method which returns a list of product images
+   * @param productId
+   * @return
+   */
+  @GetMapping(value = "/{productId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Image> getProductImages(@PathVariable long productId) {
     Product product = productService.get(productId).orElseThrow(NoSuchElementException::new);
     return imageService.getAllByProduct(product);
@@ -36,7 +50,12 @@ public class ImageController {
 
   // TODO: POST
 
-  @GetMapping(value = "/{imageId:[0-9a-fA-F\\-]{32,}}",
+  /**
+   * The Get method which returns an image id
+   * @param imageId
+   * @return
+   */
+  @GetMapping(value = "/{imageId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Image getImage(@PathVariable long imageId) {
     return imageService.get(imageId).orElseThrow(NoSuchElementException::new);
@@ -44,14 +63,25 @@ public class ImageController {
 
   // TODO: DELETE
 
-  @GetMapping(value = "/{imageId:[0-9a-fA-F\\-]{32,}}/description",
+  /**
+   * The Get method which returns the description of an image
+   * @param imageId
+   * @return
+   */
+  @GetMapping(value = "/{imageId:\\d+}/description",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getDescription(@PathVariable long imageId) {
     Image image = getImage(imageId);
     return image.getImageDescription();
   }
 
-  @PutMapping(value = "/{imageId:[0-9a-fA-F\\-]{32,}}/description",
+  /**
+   * The Put method which allows updating the description of an image
+   * @param description
+   * @param imageId
+   * @return
+   */
+  @PutMapping(value = "/{imageId:\\d+}/description",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public String updateDescription(@RequestParam String description, @PathVariable long imageId) {
     Image image = getImage(imageId);

@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * TODO doc
+ * The ProfileController class is the @RestController that maps the endpoints of "/profiles" for
+ * communication between the server-side and client-side for {@link Profile}
  */
 @RestController
 @RequestMapping("/profiles")
@@ -26,7 +27,7 @@ public class ProfileController {
   private final ProfileService profileService;
 
   /**
-   * TODO doc
+   * Constructs the instance of ProfileService object
    * @param profileService
    */
   public ProfileController(ProfileService profileService) {
@@ -34,26 +35,42 @@ public class ProfileController {
   }
 
   /**
-   * TODO doc
+   * The Get method which returns the current authenticated profile
    * @param auth
-   * @return
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public Profile me(Authentication auth) {
     return getAuthProfile(auth);
   }
 
-  @GetMapping(value = "/{userId:[0-9a-fA-F\\-]{32,}}", produces = MediaType.APPLICATION_JSON_VALUE)
+  /**
+   * The Get method which returns the users id
+   * @param userId
+   * @param auth
+   * @return
+   */
+  @GetMapping(value = "/{userId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Profile getOrder(@PathVariable Long userId, Authentication auth) {
     return profileService.getById(userId)
         .orElseThrow(NoSuchElementException::new);
   }
 
+  /**
+   * The Get method which returns the username from the AuthProfile
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/me/username", produces = MediaType.APPLICATION_JSON_VALUE)
   public String getUsername(Authentication auth) {
     return getAuthProfile(auth).getUsername();
   }
 
+  /**
+   * The Put method which allows the profile to update their username
+   * @param name
+   * @param auth
+   * @return
+   */
   @PutMapping(value = "/me/username", consumes = MediaType.APPLICATION_JSON_VALUE)
   public String updateUsername(@RequestParam String name, Authentication auth) {
     Profile profile = getAuthProfile(auth);
@@ -61,22 +78,45 @@ public class ProfileController {
     return profileService.save(profile).getUsername();
   }
 
+  /**
+   * The Get method which returns the profile image
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/me/image", produces = MediaType.APPLICATION_JSON_VALUE)
   public String getImage(Authentication auth) {
     return getAuthProfile(auth).getImage();
   }
 
+  /**
+   * The Put method which lets the Profile upload an image
+   * @param file
+   * @param auth
+   * @return
+   * @throws IOException
+   */
   @PutMapping(value = "/me/image", consumes = MediaType.APPLICATION_JSON_VALUE)
   public String uploadImage(@RequestParam MultipartFile file, Authentication auth)
       throws IOException {
     return profileService.uploadFile(file, getAuthProfile(auth));
   }
 
+  /**
+   * The Get method which returns the profile address
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/me/address", produces = MediaType.APPLICATION_JSON_VALUE)
   public String getAddress(Authentication auth) {
     return getAuthProfile(auth).getAddress();
   }
 
+  /**
+   * The Put method which lets the Profile update their address
+   * @param address
+   * @param auth
+   * @return
+   */
   @PutMapping(value = "/me/address", consumes = MediaType.APPLICATION_JSON_VALUE)
   public String updateAddress(@RequestParam String address, Authentication auth) {
     Profile profile = getAuthProfile(auth);

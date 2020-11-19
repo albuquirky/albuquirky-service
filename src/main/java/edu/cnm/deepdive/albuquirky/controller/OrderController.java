@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The OrderController class is the @RestController that maps the endpoints of "/orders" for
+ * communication between the server-side and client-side for {@link Order}
+ */
 @RestController
 @RequestMapping("/orders")
 @ExposesResourceFor(Order.class)
@@ -20,16 +24,30 @@ public class OrderController {
 
   private final OrderService orderService;
 
+  /**
+   * Constructs the instance of OrderService object
+   * @param orderService
+   */
   public OrderController(OrderService orderService) {
     this.orderService = orderService;
   }
 
+  /**
+   * The Get method which returns a list of a profile's orders
+   * @param auth
+   * @return
+   */
   @GetMapping(value = "/user_orders", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Order> getUserOrders(Authentication auth) {
     return orderService.getByBuyer(getAuthProfile(auth));
   }
 
-  @GetMapping(value = "/{orderId:[0-9a-fA-F\\-]{32,}}", produces = MediaType.APPLICATION_JSON_VALUE)
+  /**
+   * The Get method which returns an order by the order id
+   * @param orderId
+   * @return
+   */
+  @GetMapping(value = "/{orderId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Order getOrder(@PathVariable long orderId) {
     return orderService.get(orderId).orElseThrow(NoSuchElementException::new);
   }

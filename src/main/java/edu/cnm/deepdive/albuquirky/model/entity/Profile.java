@@ -64,7 +64,7 @@ public class Profile {
    * orders associated with a profile.
    */
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("placedDate DESC")
   @JsonIgnore
@@ -74,7 +74,7 @@ public class Profile {
    * of products associated with a profile.
    */
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "profile",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
   @OrderBy("name DESC")
   @JsonIgnore
@@ -84,7 +84,7 @@ public class Profile {
    * list of commissions selling
    */
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
   @JsonIgnore
   private final List<Commission> commissionsSelling = new LinkedList<>();
@@ -92,7 +92,7 @@ public class Profile {
    * The OneToMany side of the relationship between {@link Commission} and {@link Profile}
    */
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "commissioner", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
   @JsonIgnore
   private final List<Commission> commissionsRequested = new LinkedList<>();

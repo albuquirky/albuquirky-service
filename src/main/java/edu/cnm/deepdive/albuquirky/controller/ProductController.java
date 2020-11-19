@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO doc
+ * The ProductController class is the @RestController that maps the endpoints of "/products" for
+ * communication between the server-side and client-side for {@link Product}
  */
 @RestController
 @RequestMapping("/products")
@@ -25,39 +26,65 @@ public class ProductController {
   private final ProductService productService;
 
   /**
-   * TODO doc
+   * Constructs the instance of ProductService object
    * @param productService
    */
   public ProductController(ProductService productService) {
     this.productService = productService;
   }
 
-  @GetMapping(value = "/{keyword}", produces = MediaType.APPLICATION_JSON_VALUE)
+  /**
+   * The Get method which returns products matching a keyword
+   * @param keyword
+   * @return
+   */
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Product> getProductsMatchingKeyword(@PathVariable String keyword) {
     return productService.getByName(keyword);
   }
 
-  @GetMapping(value = "/seller", produces = MediaType.APPLICATION_JSON_VALUE)
+  /**
+   * The Get method which returns products from a seller
+   * @param auth
+   * @return
+   */
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Product> getProductsWhereSelling(Authentication auth) {
     return productService.getByProfile(getAuthProfile(auth));
   }
 
   // TODO: POST
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}",
+  /**
+   * The Get method which returns a product from a product id
+   * @param productId
+   * @return
+   */
+  @GetMapping(value = "/{productId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Product getProduct(@PathVariable long productId) {
     return productService.get(productId).orElseThrow(NoSuchElementException::new);
   }
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/name",
+  /**
+   * The Get method which returns a product from the product name
+   * @param productId
+   * @return
+   */
+  @GetMapping(value = "/{productId:\\d+}/name",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getName(@PathVariable long productId) {
     Product product = getProduct(productId);
     return product.getName();
   }
 
-  @PutMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/name",
+  /**
+   * The Put method which updates the name of a product
+   * @param name
+   * @param productId
+   * @return
+   */
+  @PutMapping(value = "/{productId:\\d+}/name",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public String updateName(
       @RequestParam String name, @PathVariable long productId) {
@@ -66,14 +93,25 @@ public class ProductController {
     return productService.save(product).getName();
   }
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/description",
+  /**
+   * The Get method which returns the description of a product
+   * @param productId
+   * @return
+   */
+  @GetMapping(value = "/{productId:\\d+}/description",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getDescription(@PathVariable long productId) {
     Product product = getProduct(productId);
     return product.getDescription();
   }
 
-  @PutMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/description",
+  /**
+   * The Put method which updates the description of a product
+   * @param description
+   * @param productId
+   * @return
+   */
+  @PutMapping(value = "/{productId:\\d+}/description",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public String updateDescription(@RequestParam String description, @PathVariable long productId) {
     Product product = getProduct(productId);
@@ -81,14 +119,25 @@ public class ProductController {
     return productService.save(product).getDescription();
   }
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/price",
+  /**
+   * The Get method which returns the price of a product
+   * @param productId
+   * @return
+   */
+  @GetMapping(value = "/{productId:\\d+}/price",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public int getPrice(@PathVariable long productId) {
     Product product = getProduct(productId);
     return product.getPrice();
   }
 
-  @PutMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/price",
+  /**
+   * The Put method which updates the price of a product
+   * @param price
+   * @param productId
+   * @return
+   */
+  @PutMapping(value = "/{productId:\\d+}/price",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public int updatePrice(
       @RequestParam int price, @PathVariable long productId) {
@@ -97,14 +146,25 @@ public class ProductController {
     return productService.save(product).getPrice();
   }
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/stock",
+  /**
+   * The Get method which returns the stock of a product
+   * @param productId
+   * @return
+   */
+  @GetMapping(value = "/{productId:\\d+}/stock",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public int getStock(@PathVariable long productId) {
     Product product = getProduct(productId);
     return product.getPrice();
   }
 
-  @PutMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}/stock",
+  /**
+   * The Put method which updates the stock of a product
+   * @param stock
+   * @param productId
+   * @return
+   */
+  @PutMapping(value = "/{productId:\\d+}/stock",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public int updateStock(
       @RequestParam int stock, @PathVariable long productId) {
