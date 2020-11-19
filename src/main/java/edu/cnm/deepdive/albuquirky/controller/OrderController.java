@@ -29,7 +29,7 @@ public class OrderController {
     return orderService.getByBuyer(getAuthProfile(auth));
   }
 
-  @GetMapping(value = "/{orderId:[0-9a-fA-F\\-]{32,}}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{orderId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Order getOrder(@PathVariable long orderId) {
     return orderService.get(orderId).orElseThrow(NoSuchElementException::new);
   }

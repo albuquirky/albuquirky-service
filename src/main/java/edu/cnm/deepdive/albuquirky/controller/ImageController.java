@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class ImageController {
     this.productService = productService;
   }
 
-  @GetMapping(value = "/{productId:[0-9a-fA-F\\-]{32,}}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{productId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Image> getProductImages(@PathVariable long productId) {
     Product product = productService.get(productId).orElseThrow(NoSuchElementException::new);
     return imageService.getAllByProduct(product);
@@ -36,7 +37,7 @@ public class ImageController {
 
   // TODO: POST
 
-  @GetMapping(value = "/{imageId:[0-9a-fA-F\\-]{32,}}",
+  @GetMapping(value = "/{imageId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Image getImage(@PathVariable long imageId) {
     return imageService.get(imageId).orElseThrow(NoSuchElementException::new);
@@ -44,16 +45,17 @@ public class ImageController {
 
   // TODO: DELETE
 
-  @GetMapping(value = "/{imageId:[0-9a-fA-F\\-]{32,}}/description",
+  @GetMapping(value = "/{imageId:\\d+}/description",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getDescription(@PathVariable long imageId) {
     Image image = getImage(imageId);
     return image.getImageDescription();
   }
 
-  @PutMapping(value = "/{imageId:[0-9a-fA-F\\-]{32,}}/description",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String updateDescription(@RequestParam String description, @PathVariable long imageId) {
+  @PutMapping(value = "/{imageId:\\d+}/description",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public String updateDescription(@RequestBody String description, @PathVariable long imageId) {
     Image image = getImage(imageId);
     image.setImageDescription(description);
     return imageService.save(image).getImageDescription();

@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,7 @@ public class ProfileController {
     return getAuthProfile(auth);
   }
 
-  @GetMapping(value = "/{userId:[0-9a-fA-F\\-]{32,}}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{userId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Profile getOrder(@PathVariable Long userId, Authentication auth) {
     return profileService.getById(userId)
         .orElseThrow(NoSuchElementException::new);
@@ -42,8 +43,10 @@ public class ProfileController {
     return getAuthProfile(auth).getUsername();
   }
 
-  @PutMapping(value = "/me/username", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String updateUsername(@RequestParam String name, Authentication auth) {
+  @PutMapping(value = "/me/username",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public String updateUsername(@RequestBody String name, Authentication auth) {
     Profile profile = getAuthProfile(auth);
     profile.setUsername(name);
     return profileService.save(profile).getUsername();
@@ -54,8 +57,10 @@ public class ProfileController {
     return getAuthProfile(auth).getImage();
   }
 
-  @PutMapping(value = "/me/image", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String uploadImage(@RequestParam MultipartFile file, Authentication auth)
+  @PutMapping(value = "/me/image",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public String uploadImage(@RequestBody MultipartFile file, Authentication auth)
       throws IOException {
     return profileService.uploadFile(file, getAuthProfile(auth));
   }
@@ -65,8 +70,10 @@ public class ProfileController {
     return getAuthProfile(auth).getAddress();
   }
 
-  @PutMapping(value = "/me/address", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String updateAddress(@RequestParam String address, Authentication auth) {
+  @PutMapping(value = "/me/address",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public String updateAddress(@RequestBody String address, Authentication auth) {
     Profile profile = getAuthProfile(auth);
     profile.setAddress(address);
     return profileService.save(profile).getAddress();

@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class CommissionController {
 
   // TODO: POST
 
-  @GetMapping(value = "/{commissionId:[0-9a-fA-F\\-]{32,}}",
+  @GetMapping(value = "/{commissionId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Commission getCommission(@PathVariable long commissionId) {
     return commissionService.get(commissionId).orElseThrow(NoSuchElementException::new);
@@ -48,17 +49,18 @@ public class CommissionController {
 
   // TODO: DELETE
 
-  @GetMapping(value = "/{commissionId:[0-9a-fA-F\\-]{32,}}/commission_request",
+  @GetMapping(value = "/{commissionId:\\d+}/commission_request",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getCommissionRequest(@PathVariable long commissionId) {
     Commission commission = getCommission(commissionId);
     return commission.getCommissionRequest();
   }
 
-  @PutMapping(value = "/{commissionId:[0-9a-fA-F\\-]{32,}}/commission_request",
-      consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping(value = "/{commissionId:\\d+}/commission_request",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public String updateCommissionRequest(
-      @RequestParam String request, @PathVariable long commissionId) {
+      @RequestBody String request, @PathVariable long commissionId) {
     Commission commission = getCommission(commissionId);
     commission.setCommissionRequest(request);
     return commissionService.save(commission).getCommissionRequest();
