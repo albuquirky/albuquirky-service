@@ -4,7 +4,6 @@ import edu.cnm.deepdive.albuquirky.model.entity.Product;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.util.pattern.PathPatternRouteMatcher;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -15,4 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   Iterable<Product> getAllByNameContainsOrderByName(String nameFragment);
 
   Iterable<Product> getAllByProfileAndNameContainsOrderByName(Profile profile, String nameFragment);
+
 }
