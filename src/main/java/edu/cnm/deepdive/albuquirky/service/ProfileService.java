@@ -43,6 +43,10 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
         });
   }
 
+  public Profile save(Profile profile) {
+    return profileRepository.save(profile);
+  }
+
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
     Collection<SimpleGrantedAuthority> grants =

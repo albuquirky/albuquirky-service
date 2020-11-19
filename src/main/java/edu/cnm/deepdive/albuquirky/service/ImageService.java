@@ -19,8 +19,7 @@ public class ImageService {
     this.imageRepository = imageRepository;
   }
 
-  public Image save(Image image, Product product, String description) {
-    // TODO: Validate image info.
+  public Image save(Image image) {
     return imageRepository.save(image);
   }
 
@@ -37,7 +36,7 @@ public class ImageService {
     return imageRepository.findById(id);
   }
 
-  List<Image> getAllByProduct(Product product) {
+  public List<Image> getAllByProduct(Product product) {
     return imageRepository.getAllByProductOrderByCreatedAsc(product);
   }
 
