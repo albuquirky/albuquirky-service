@@ -70,7 +70,7 @@ public class Commission {
   @JoinColumn(name = "commissioner_id", nullable = false)
   private Profile commissioner;
   /**
-   *
+   * The id of the product which can be null
    */
   @Column(name = "product_id")
   private Long product;
