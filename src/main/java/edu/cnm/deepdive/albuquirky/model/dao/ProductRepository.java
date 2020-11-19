@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-  Optional<Product> getById(Long id);
-
   Iterable<Product> getAllByProfileOrderByName(Profile profile);
 
   Iterable<Product> getAllByNameContainsOrderByName(String nameFragment);

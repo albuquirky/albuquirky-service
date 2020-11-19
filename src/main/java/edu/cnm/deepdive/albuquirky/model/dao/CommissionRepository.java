@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommissionRepository extends JpaRepository<Commission, Long> {
 
-  Optional<Commission> getById(Long id);
-
   List<Commission> getAllBySellerOrderByTimestamp(Profile seller);
 
   List<Commission> findBySellerAndWaitlistPositionGreaterThanOrderByWaitlistPosition(Profile seller, int position);

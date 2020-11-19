@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-  Optional<Order> getById(Long id);
-
   List<Order> getAllByBuyerOrderByPlacedDate(Profile buyer);
 
 }
