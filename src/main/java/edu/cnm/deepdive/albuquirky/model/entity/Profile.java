@@ -26,7 +26,7 @@ import org.springframework.lang.NonNull;
 public class Profile {
 
   /**
-   * The Primary Key for the class.
+   * The Primary Key for the class, the profile id
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,14 +98,14 @@ public class Profile {
   private final List<Commission> commissionsRequested = new LinkedList<>();
 
   /**
-   * Returns {@link Profile#id}
+   * Returns the {@link Profile#id}
    */
   public Long getId() {
     return id;
   }
 
   /**
-   * Returns {@link Profile#username}
+   * Returns the {@link Profile#username}
    */
   @NonNull
   public String getUsername() {
@@ -121,7 +121,7 @@ public class Profile {
   }
 
   /**
-   * Returns {@link Profile#email}
+   * Returns the {@link Profile#email}
    */
   @NonNull
   public String getEmail() {
@@ -137,7 +137,7 @@ public class Profile {
   }
 
   /**
-   *  Returns {@link Profile#image}
+   *  Returns the {@link Profile#image}
    */
   public String getImage() {
     return image;
@@ -152,7 +152,7 @@ public class Profile {
   }
 
   /**
-   * Returns {@link Profile#address}
+   * Returns the {@link Profile#address}
    */
   public String getAddress() {
     return address;

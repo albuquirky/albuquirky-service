@@ -18,7 +18,7 @@ import org.springframework.lang.NonNull;
 public class ProductOnOrder {
 
   /**
-   * The Primary Key for the class.
+   * The Primary Key for the class, the product on order id
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,7 +54,7 @@ public class ProductOnOrder {
   private int unitPrice;
 
   /**
-   * Returns {@link ProductOnOrder#id}
+   * Returns the {@link ProductOnOrder#id}
    */
   public Long getId() {
     return id;
@@ -77,7 +77,7 @@ public class ProductOnOrder {
   }
 
   /**
-   * Returns {@link Order} id
+   * Returns the {@link Order} id
    */
   @NonNull
   public Order getOrder() {
@@ -93,7 +93,7 @@ public class ProductOnOrder {
   }
 
   /**
-   * Returns {@link ProductOnOrder#itemQuantity}
+   * Returns the {@link ProductOnOrder#itemQuantity}
    */
   public int getItemQuantity() {
     return itemQuantity;
@@ -108,7 +108,7 @@ public class ProductOnOrder {
   }
 
   /**
-   * Returns {@link ProductOnOrder#unitPrice}
+   * Returns the {@link ProductOnOrder#unitPrice}
    */
   public int getUnitPrice() {
     return unitPrice;

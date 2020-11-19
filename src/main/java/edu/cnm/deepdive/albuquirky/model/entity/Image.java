@@ -22,23 +22,35 @@ import org.springframework.lang.NonNull;
 @Entity
 public class Image {
 
+  /**
+   * The Primary Key for the class, the image id
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "image_id", nullable = false, updatable = false)
   private Long id;
-
+  /**
+   * The image file name
+   */
   @NonNull
   @Column(name = "image_file_name", nullable = false, unique = true)
   private String imageFileName;
-
+  /**
+   * The image description
+   */
   @Column(name = "image_description")
   private String imageDescription;
-
+  /**
+   * The ManyToOne side of the relationship between {@link Product} and {@link Image} for the image
+   * of a product.
+   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "product_id", nullable = false, updatable = false)
   private Product product;
-
+  /**
+   * Date timestamp of the created image
+   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
@@ -54,8 +66,7 @@ public class Image {
   }
 
   /**
-   * Gets {@link Image#imageFileName}
-   * @return imageFileName
+   * Returns the {@link Image#imageFileName}
    */
   @NonNull
   public String getImageFileName() {
@@ -71,8 +82,7 @@ public class Image {
   }
 
   /**
-   * Gets {@link Image#imageDescription}
-   * @return imageDescription
+   * Returns the {@link Image#imageDescription}
    */
   public String getImageDescription() {
     return imageDescription;
@@ -87,8 +97,7 @@ public class Image {
   }
 
   /**
-   * Gets {@link Product} id
-   * @return product id
+   * Returns the {@link Product} id
    */
   @NonNull
   public Product getProduct() {
@@ -104,8 +113,7 @@ public class Image {
   }
 
   /**
-   * Gets {@link Image#created}
-   * @return created- Date timestamp
+   * Returns the {@link Image#created}
    */
   @NonNull
   public Date getCreated() {

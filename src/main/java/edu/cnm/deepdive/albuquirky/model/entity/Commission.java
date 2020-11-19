@@ -29,7 +29,7 @@ import org.springframework.lang.NonNull;
 public class Commission {
 
   /**
-   * The Primary Key for the class.
+   * The Primary Key for the class, the commission id
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,15 +76,14 @@ public class Commission {
   private Long product;
 
   /**
-   * Gets {@link Commission#id}
-   * @return id
+   * Returns the {@link Commission#id}
    */
   public Long getId() {
     return id;
   }
 
   /**
-   * Returns {@link Commission#commissionRequest}
+   * Returns the {@link Commission#commissionRequest}
    */
   @NonNull
   public String getCommissionRequest() {
@@ -100,7 +99,7 @@ public class Commission {
   }
 
   /**
-   * Returns {@link Commission#waitlistPosition}
+   * Returns the {@link Commission#waitlistPosition}
    */
   public int getWaitlistPosition() {
     return waitlistPosition;
@@ -115,15 +114,14 @@ public class Commission {
   }
 
   /**
-   * Gets {@link Profile} id of the seller.
-   * @return seller
+   * Returns the {@link Profile} id of the seller.
    */
   public Profile getSeller() {
     return seller;
   }
 
   /**
-   * Sets {}
+   * Sets {@link Profile} seller id
    * @param seller- Profile
    */
   public void setSeller(Profile seller) {
@@ -131,8 +129,7 @@ public class Commission {
   }
 
   /**
-   *
-   * @return Date timestamp
+   * Returns the Date timestamp
    */
   @NonNull
   public Date getTimestamp() {
@@ -140,8 +137,7 @@ public class Commission {
   }
 
   /**
-   * Getter for commissioner
-   * @return commissioner
+   * Returns the {@link Commission#commissioner}
    */
   @NonNull
   public Profile getCommissioner() {
@@ -157,14 +153,15 @@ public class Commission {
   }
 
   /**
-   * Returns product
+   *
+   * @return product- Long
    */
   public Long getProduct() {
     return product;
   }
 
   /**
-   *
+   * Sets
    * @param product- Long
    */
   public void setProduct(Long product) {

@@ -30,24 +30,35 @@ import org.springframework.lang.NonNull;
 @Table(name = "placed_order")
 public class Order {
 
+  /**
+   * The primary key of the class, the order id
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "order_id", nullable = false, updatable = false)
   private Long id;
-
+  /**
+   * Date timestamp for the placed date of the order
+   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date placedDate;
 
-
   // TODO: Change to match column name in ERD.
+  /**
+   * The ManyToOne side of the relationship between {@link Profile} and {@link Order}, the order's
+   * buyer.
+   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "buyer_id", nullable = false, updatable = false)
   private Profile buyer;
-
+  /**
+   * The OneToMany side of the relationship between {@link ProductOnOrder} and {@link Order} which
+   * gives a list of items on order
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
@@ -55,16 +66,14 @@ public class Order {
   private final List<ProductOnOrder> itemsOnOrder = new LinkedList<>();
 
   /**
-   * Gets {@link Order#id}
-   * @return id
+   * Returns the {@link Order#id}
    */
   public Long getId() {
     return id;
   }
 
   /**
-   * Gets {@link Order#placedDate}
-   * @return placedDate
+   * Returns the {@link Order#placedDate}
    */
   @NonNull
   public Date getPlacedDate() {
@@ -72,8 +81,7 @@ public class Order {
   }
 
   /**
-   * Gets {@link Order#buyer}
-   * @return buyer
+   * Returns the {@link Order#buyer}
    */
   @NonNull
   public Profile getBuyer() {

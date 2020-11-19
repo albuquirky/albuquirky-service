@@ -30,42 +30,63 @@ import org.springframework.lang.NonNull;
 @Entity
 public class Product {
 
+  /**
+   * The primary key of the class, the product id
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "product_id", nullable = false, updatable = false)
   private Long id;
-
+  /**
+   * The name of the product
+   */
   @NonNull
   @Column(name = "product_name", nullable = false)
   private String name;
-
+/**
+ * The product description
+ */
   private String description;
-
+  /**
+   * The price of the product
+   */
   @NonNull
   @Column(nullable = false)
   private int price;
-
+  /**
+   * The stock of the product
+   */
   @NonNull
   @Column(nullable = false)
   private int stock;
-
+  /**
+   * Date timestamp of the product's posted date
+   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date postedDate;
-
+  /**
+   * The ManyToOne side of the relationship between {@link Profile} and {@link Product}
+   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id", nullable = false, updatable = false)
   private Profile profile;
-
+  /**
+   * The OneToMany side of the relationship between {@link Image} and {@link Product} which shows
+   * a list of product images
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "product",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("created DESC")
   private final List<Image> productImages = new LinkedList<>();
-
+  /**
+   * The OneToMany side of the relationship between {@link ProductOnOrder} and {@link Product} which
+   * gives a list of order items
+   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
@@ -98,8 +119,7 @@ public class Product {
   }
 
   /**
-   * Gets {@link Product#description}
-   * @return description
+   * Returns the {@link Product#description}
    */
   public String getDescription() {
     return description;
@@ -114,8 +134,7 @@ public class Product {
   }
 
   /**
-   * Gets the {@link Product#price}
-   * @return price
+   * Returns the {@link Product#price}
    */
   public int getPrice() {
     return price;
@@ -130,8 +149,7 @@ public class Product {
   }
 
   /**
-   * Gets {@link Product#stock}
-   * @return stock
+   * Returns the {@link Product#stock}
    */
   public int getStock() {
     return stock;
@@ -146,8 +164,7 @@ public class Product {
   }
 
   /**
-   * Gets {@link Product#postedDate}
-   * @return postedDate
+   * Returns the {@link Product#postedDate}
    */
   @NonNull
   public Date getPostedDate() {
@@ -155,8 +172,7 @@ public class Product {
   }
 
   /**
-   * Gets {@link Profile}
-   * @return profile
+   * Returns the {@link Profile}
    */
   @NonNull
   public Profile getProfile() {
