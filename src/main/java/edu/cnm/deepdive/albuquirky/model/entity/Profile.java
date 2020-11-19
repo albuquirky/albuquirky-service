@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -42,22 +43,26 @@ public class Profile {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("placedDate DESC")
+  @JsonIgnore
   private final List<Order> orders = new LinkedList<>();
 
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
   @OrderBy("name DESC")
+  @JsonIgnore
   private final List<Product> products = new LinkedList<>();
 
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
+  @JsonIgnore
   private final List<Commission> commissionsSelling = new LinkedList<>();
 
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
+  @JsonIgnore
   private final List<Commission> commissionsRequested = new LinkedList<>();
 
   public Long getId() {
