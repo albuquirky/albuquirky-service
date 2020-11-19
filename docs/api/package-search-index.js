@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"edu.cnm.deepdive.albuquirky"},{"l":"edu.cnm.deepdive.albuquirky.configuration"},{"l":"edu.cnm.deepdive.albuquirky.controller"},{"l":"edu.cnm.deepdive.albuquirky.model.dao"},{"l":"edu.cnm.deepdive.albuquirky.model.entity"},{"l":"edu.cnm.deepdive.albuquirky.service"}]

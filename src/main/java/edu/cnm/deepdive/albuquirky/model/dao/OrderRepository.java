@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * The OrderRepository interface gives an Optional {@Link Order} by when the order was placed.
+ * The OrderRepository interface gives an Optional {@link Order} by when the order was placed.
  */
 public interface OrderRepository extends JpaRepository<Order, Long> {
 

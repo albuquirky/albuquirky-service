@@ -23,7 +23,7 @@ public class AlbuquirkyApplication {
 
   /**
    * Construct
-   * @param
+   * @param args
    */
   public static void main(String[] args) {
     SpringApplication.run(AlbuquirkyApplication.class, args);
