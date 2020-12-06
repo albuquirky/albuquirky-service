@@ -3,6 +3,7 @@ package edu.cnm.deepdive.albuquirky.service;
 import edu.cnm.deepdive.albuquirky.model.dao.CommissionRepository;
 import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Commission;
+import edu.cnm.deepdive.albuquirky.model.entity.Image;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -66,7 +67,23 @@ public class CommissionService {
         })
         .orElseThrow(NoSuchElementException::new);
   }
-// TODO Add a remove method using specified business logic
+
+  /**
+   * Method to delete a commission if the user is either the commissioner or the seller.
+   * @param commission The {@link Commission} to be deleted.
+   * @param profile The {@link {Profile} of the user attempting to delete the commission.
+   * @return The Commission being deleted.
+   */
+  public Commission remove(Commission commission, Profile profile) {
+    long commissionerId = commission.getCommissioner().getId();
+    long sellerId = commission.getSeller().getId();
+    if (commissionerId != profile.getId() || sellerId != profile.getId()) {
+      // TODO throw an exception indicating access is forbidden
+    } else {
+      commissionRepository.delete(commission);
+    }
+    return commission;
+  }
 
   /**
    * The image file name

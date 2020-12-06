@@ -66,9 +66,9 @@ public class ProductController {
 
   /**
    * The Post method which lets a profile post a product.
-   * @param product
-   * @param auth
-   * @return
+   * @param product The {@link Product} to be created.
+   * @param auth The authorization for the user.
+   * @return The {@link Product} object that was created.
    */
   @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})

@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +52,19 @@ public class OrderController {
   @GetMapping(value = "/{orderId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Order getOrder(@PathVariable long orderId) {
     return orderService.get(orderId).orElseThrow(NoSuchElementException::new);
+  }
+
+  /**
+   * The Post method for creating an order.
+   * @param order The {@link Order} to be created.
+   * @param auth The authorization for the user.
+   * @return The {@link Order} object that was created.
+   */
+  @PostMapping(
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public Order post(@RequestBody Order order, Authentication auth) {
+    return orderService.save(order, getAuthProfile(auth));
   }
 
   private static Profile getAuthProfile(Authentication auth) {

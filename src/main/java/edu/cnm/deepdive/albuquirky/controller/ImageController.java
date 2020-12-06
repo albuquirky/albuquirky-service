@@ -2,18 +2,22 @@ package edu.cnm.deepdive.albuquirky.controller;
 
 import edu.cnm.deepdive.albuquirky.model.entity.Image;
 import edu.cnm.deepdive.albuquirky.model.entity.Product;
+import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import edu.cnm.deepdive.albuquirky.service.ImageService;
 import edu.cnm.deepdive.albuquirky.service.ProductService;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -49,7 +53,18 @@ public class ImageController {
     return imageService.getAllByProduct(product);
   }
 
-  // TODO: POST
+  /**
+   * The Post method for creating a new image.
+   * @param image The {@link Image} to be created.
+   * @return The {@link Image} object that was created.
+   */
+  @PostMapping(
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public Image post(@RequestBody Image image) {
+    return imageService.save(image);
+  }
+
 
   /**
    * The Get method which returns an image id
@@ -62,7 +77,21 @@ public class ImageController {
     return imageService.get(imageId).orElseThrow(NoSuchElementException::new);
   }
 
-  // TODO: DELETE
+  /**
+   * The Delete method that returns a response entity indicating success or failure.
+   * @param imageId The ID of the {@link Image} to be deleted.
+   * @param image The {@link Image} object.
+   * @param profile The {@link Profile} of the user requesting the delete.
+   * @return A {@code ResponseEntity} indicating the status of the delete attempt.
+   */
+  @DeleteMapping(value = "/{imageId:\\d+}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Long> deleteImage(
+      @PathVariable long imageId, Image image, Profile profile) {
+    imageService.remove(image, profile);
+    return imageService.get(imageId).isEmpty()
+        ? new ResponseEntity<>(imageId, HttpStatus.OK)
+        : new ResponseEntity<>(imageId, HttpStatus.NOT_FOUND);
+  }
 
   /**
    * The Get method which returns the description of an image
