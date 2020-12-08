@@ -14,7 +14,7 @@ public interface CommissionRepository extends JpaRepository<Commission, Long> {
   /**
    * Method to get a list of {@link Commission} for a specific seller, ordered by timestamp.
    *
-   * @param seller is an instance of {@link Profile} representing the commissioned party.
+   * @param seller An instance of {@link Profile} representing the commissioned party.
    */
   List<Commission> getAllBySellerOrderByTimestamp(Profile seller);
 
@@ -22,15 +22,15 @@ public interface CommissionRepository extends JpaRepository<Commission, Long> {
    * Method to get a list of {@link Commission} for a specific seller, where the waitlist position
    *  is greater than a specific {@code position} and ordered by their position in the waitlist.
    *
-   * @param seller is an instance of {@link Profile} representing the commissioned party.
-   * @param position is the int value to search for elements greater than.
+   * @param seller An instance of {@link Profile} representing the commissioned party.
+   * @param position The int value to search for elements greater than.
    */
   List<Commission> findBySellerAndWaitlistPositionGreaterThanOrderByWaitlistPosition(Profile seller, int position);
 
   /**
    * Method to get a list of {@link Commission} submitted by a specific user, ordered by timestamp.
    *
-   * @param commissioner is an instance of {@link Profile} representing the commissioning party.
+   * @param commissioner An instance of {@link Profile} representing the commissioning party.
    */
   List<Commission> findByCommissionerOrderByTimestamp(Profile commissioner);
 

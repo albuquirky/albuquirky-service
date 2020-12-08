@@ -1,26 +1,28 @@
 package edu.cnm.deepdive.albuquirky.controller;
 
-import edu.cnm.deepdive.albuquirky.model.dao.CommissionRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Commission;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import edu.cnm.deepdive.albuquirky.service.CommissionService;
-import edu.cnm.deepdive.albuquirky.service.ProductService;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * The CommissionController class is the @RestController that maps the endpoints of "/commissions"
- * for the communication between the server-side and client-side for {@link Commission}
+ * The CommissionController class is the {@code RestController} that maps the endpoints of
+ * "/commissions" for the communication between the server-side and client-side for
+ * {@link Commission}.
  */
 @RestController
 @RequestMapping("/commissions")
@@ -31,7 +33,7 @@ public class CommissionController {
 
   /**
    * Constructs the instance of CommissionService object
-   * @param commissionService
+   * @param commissionService The {@link CommissionService} to initialize.
    */
   public CommissionController(CommissionService commissionService) {
     this.commissionService = commissionService;
@@ -39,8 +41,8 @@ public class CommissionController {
 
   /**
    * The Get method which returns a list of commission from seller
-   * @param auth
-   * @return
+   * @param auth The authorization for the user.
+   * @return A {@code List} of {@link Commission} objects representing the user's waitlist.
    */
   @GetMapping(value = "/seller", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Commission> getCommissionsWhereSeller(Authentication auth) {
@@ -49,20 +51,32 @@ public class CommissionController {
 
   /**
    * The Get method which returns a list of commission from commissioner(buyer)
-   * @param auth
-   * @return
+   * @param auth The authorization for the user.
+   * @return A {@code List} of {@link Commission} objects representing those the user commissioned.
    */
   @GetMapping(value = "/buyer", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Commission> getCommissionsWhereCommissioner(Authentication auth) {
     return commissionService.getByCommissioner(getAuthProfile(auth));
   }
 
-  // TODO: POST
+  /**
+   * The Post method for creating a new commission.
+   * @param commission The {@link Commission} to be created.
+   * @param auth The authorization for the user.
+   * @return The {@link Commission} object that was created.
+   */
+  @PostMapping(
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+  public Commission post(@RequestBody Commission commission, Authentication auth) {
+    commission.setCommissioner(getAuthProfile(auth));
+    return commissionService.save(commission);
+  }
 
   /**
    * The Get method that returns the commission by commission id
-   * @param commissionId
-   * @return
+   * @param commissionId The ID of the {@link Commission}.
+   * @return The matching {@link Commission} object.
    */
   @GetMapping(value = "/{commissionId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,14 +84,26 @@ public class CommissionController {
     return commissionService.get(commissionId).orElseThrow(NoSuchElementException::new);
   }
 
-  // TODO: DELETE
+  /**
+   * The Delete method that returns a response entity indicating success or failure.
+   * @param commissionId The ID of the {@link Commission} to be deleted.
+   * @return A {@code ResponseEntity} indicating the status of the delete attempt.
+   */
+  @DeleteMapping(value = "/{commissionId:\\d+}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Long> deleteCommission(
+      @PathVariable long commissionId, Commission commission, Profile profile) {
+    commissionService.remove(commission, profile);
+    return commissionService.get(commissionId).isEmpty()
+        ? new ResponseEntity<>(commissionId, HttpStatus.OK)
+        : new ResponseEntity<>(commissionId, HttpStatus.NOT_FOUND);
+  }
 
   /**
    * The Get method that returns the commission request by commission id
-   * @param commissionId
-   * @return
+   * @param commissionId The ID of the {@link Commission}.
+   * @return The matching {@link Commission} object.
    */
-  @GetMapping(value = "/{commissionId:\\d+}/commission_request",
+  @GetMapping(value = "/{commissionId:\\d+}/commission-request",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getCommissionRequest(@PathVariable long commissionId) {
     Commission commission = getCommission(commissionId);
@@ -86,11 +112,11 @@ public class CommissionController {
 
   /**
    * The Put method which allows update to the commission request
-   * @param request
-   * @param commissionId
-   * @return
+   * @param request The String content of the {@link Commission} request.
+   * @param commissionId The ID of the {@link Commission}.
+   * @return The updated {@link Commission} request field content.
    */
-  @PutMapping(value = "/{commissionId:\\d+}/commission_request",
+  @PutMapping(value = "/{commissionId:\\d+}/commission-request",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public String updateCommissionRequest(

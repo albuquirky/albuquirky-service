@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import org.springframework.lang.NonNull;
 
@@ -20,7 +21,6 @@ import org.springframework.lang.NonNull;
  * image and address are both not required. Profile is on the OneToMany side from {@link Commission}
  * which has lists of commission requests and commissions selling. Also {@link Product} has a
  * list of {@link Profile#products}.
- *
  */
 @Entity
 public class Profile {
@@ -32,33 +32,39 @@ public class Profile {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "profile_id", nullable = false, updatable = false)
   private Long id;
+
   /**
    * The profile's username
    */
   @NonNull
   @Column(unique = true, nullable = false)
   private String username;
+
   /**
    * The profile's email
    */
   @NonNull
   @Column(unique = true, nullable = false)
   private String email;
+
   /**
    * The profile's image
    */
-  @Column(unique = true)
-  private String image;
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+  private ProfilePicture image;
+
   /**
    * The profile's address
    */
   private String address;
+
   /**
    * The profile's OAuth key from Google Sign-in
    */
   @NonNull
   @Column(unique = true, nullable = false, updatable = false)
   private String oauth;
+
   /**
    * The OneToMany side of the relationship between {@link Order} and {@link Profile} for a list of
    * orders associated with a profile.
@@ -68,7 +74,15 @@ public class Profile {
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("placedDate DESC")
   @JsonIgnore
-  private final List<Order> orders = new LinkedList<>();
+  private final List<Order> ordersBought = new LinkedList<>();
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller",
+      cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+  @OrderBy("placedDate DESC")
+  @JsonIgnore
+  private final List<Order> ordersSold = new LinkedList<>();
+
   /**
    * The OneToMany side of the relationship between {@link Product} and {@link Profile} for a list
    * of products associated with a profile.
@@ -79,6 +93,7 @@ public class Profile {
   @OrderBy("name DESC")
   @JsonIgnore
   private final List<Product> products = new LinkedList<>();
+
   /**
    * The OneToMany side of the relationship between {@link Commission} and {@link Profile} for a
    * list of commissions selling
@@ -88,6 +103,7 @@ public class Profile {
   @OrderBy("waitlistPosition ASC")
   @JsonIgnore
   private final List<Commission> commissionsSelling = new LinkedList<>();
+
   /**
    * The OneToMany side of the relationship between {@link Commission} and {@link Profile}
    */
@@ -137,17 +153,22 @@ public class Profile {
   }
 
   /**
-   *  Returns the {@link Profile#image}
+   *
+   * @param id
    */
-  public String getImage() {
-    return image;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   /**
-   * Sets {@link Profile#image}
-   * @param image String
+   *
+   * @return
    */
-  public void setImage(String image) {
+  public ProfilePicture getImage() {
+    return image;
+  }
+
+  public void setImage(ProfilePicture image) {
     this.image = image;
   }
 
@@ -187,8 +208,17 @@ public class Profile {
    * @return List of orders
    */
   @NonNull
-  public List<Order> getOrders() {
-    return orders;
+  public List<Order> getOrdersBought() {
+    return ordersBought;
+  }
+
+  /**
+   *
+   * @return
+   */
+  @NonNull
+  public List<Order> getOrdersSold() {
+    return ordersSold;
   }
 
   /**

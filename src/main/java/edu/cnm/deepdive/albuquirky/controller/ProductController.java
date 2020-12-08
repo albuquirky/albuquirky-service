@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The ProductController class is the @RestController that maps the endpoints of "/products" for
- * communication between the server-side and client-side for {@link Product}
+ * communication between the server-side and client-side for {@link Product}.
  */
 @RestController
 @RequestMapping("/products")
@@ -29,15 +29,15 @@ public class ProductController {
 
   /**
    * Constructs the instance of ProductService object
-   * @param productService
+   * @param productService The instance of {@link ProductService} to be initialized.
    */
   public ProductController(ProductService productService) {
     this.productService = productService;
   }
 
   /**
-   * The Get method which returns all products
-   * @return
+   * The Get method which returns all existing products.
+   * @return An {@code Iterable} containing all existing {@link Product} objects.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Product> getAllProducts() {
@@ -46,8 +46,9 @@ public class ProductController {
 
   /**
    * The Get method which returns a product matching a keyword
-   * @param keyword
-   * @return
+   * @param keyword The String keyword to filter products by.
+   * @return An {@code Iterable} containing all existing {@link Product} objects matching the
+   * {@code keyword} by name.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "keyword")
   public Iterable<Product> getProductsMatchingKeyword(@RequestParam String keyword) {
@@ -55,9 +56,9 @@ public class ProductController {
   }
 
   /**
-   * The Get method which returns products from a seller
-   * @param auth
-   * @return
+   * The Get method which returns products from a seller.
+   * @param auth The user authentication.
+   * @return An {@code Iterable} containing all existing {@link Product} objects sold by the user.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = {"mine"})
   public Iterable<Product> getProductsWhereSelling(@RequestParam boolean mine, Authentication auth) {
@@ -66,11 +67,11 @@ public class ProductController {
 
   /**
    * The Post method which lets a profile post a product.
-   * @param product
-   * @param auth
-   * @return
+   * @param product The {@link Product} to be created.
+   * @param auth The authorization for the user.
+   * @return The {@link Product} object that was created.
    */
-  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public Product post(@RequestBody Product product, Authentication auth) {
     product.setProfile(getAuthProfile(auth));
@@ -78,9 +79,9 @@ public class ProductController {
   }
 
   /**
-   * The Get method which returns a product from a product id
-   * @param productId
-   * @return
+   * The Get method which returns a product from a product ID.
+   * @param productId The ID of the {@link Product} requested.
+   * @return The {@link Product} matching the provided ID.
    */
   @GetMapping(value = "/{productId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -90,8 +91,8 @@ public class ProductController {
 
   /**
    * The Get method which returns a product from the product name
-   * @param productId
-   * @return
+   * @param productId The ID of the {@link Product} requested.
+   * @return The String name of the {@link Product} requested.
    */
   @GetMapping(value = "/{productId:\\d+}/name",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -101,10 +102,10 @@ public class ProductController {
   }
 
   /**
-   * The Put method which updates a product name
-   * @param name
-   * @param productId
-   * @return
+   * The Put method which updates a product name.
+   * @param name The new name content.
+   * @param productId The ID of the {@link Product} to be updated.
+   * @return The updated name content.
    */
   @PutMapping(value = "/{productId:\\d+}/name",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
@@ -118,8 +119,8 @@ public class ProductController {
 
   /**
    * The Get method which returns the description of a product
-   * @param productId
-   * @return
+   * @param productId The ID of the {@link Product} requested.
+   * @return The String description of the {@link Product} requested.
    */
   @GetMapping(value = "/{productId:\\d+}/description",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -129,10 +130,10 @@ public class ProductController {
   }
 
   /**
-   * The Put method which updates the description of a product
-   * @param description
-   * @param productId
-   * @return
+   * The Put method which updates the description of a product.
+   * @param description The new description content.
+   * @param productId The ID of the {@link Product} to be updated.
+   * @return The updated description content.
    */
   @PutMapping(value = "/{productId:\\d+}/description",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
@@ -144,9 +145,9 @@ public class ProductController {
   }
 
   /**
-   * The Get method which returns the price of a product
-   * @param productId
-   * @return
+   * The Get method which returns the price of a product.
+   * @param productId The ID of the {@link Product} requested.
+   * @return The price of the {@link Product} requested.
    */
   @GetMapping(value = "/{productId:\\d+}/price",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -156,10 +157,10 @@ public class ProductController {
   }
 
   /**
-   * The Put method which updates the price of a product
-   * @param price
-   * @param productId
-   * @return
+   * The Put method which updates the price of a product.
+   * @param price The new price.
+   * @param productId The ID of the {@link Product} to be updated.
+   * @return The new price value.
    */
   @PutMapping(value = "/{productId:\\d+}/price",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
@@ -172,9 +173,9 @@ public class ProductController {
   }
 
   /**
-   * The Get method which returns the stock of a product
-   * @param productId
-   * @return
+   * The Get method which returns the stock of a product.
+   * @param productId The ID of the {@link Product} requested.
+   * @return The stock of the requested {@link Product}.
    */
   @GetMapping(value = "/{productId:\\d+}/stock",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -185,9 +186,9 @@ public class ProductController {
 
   /**
    * The Put method which updates the stock of a product
-   * @param stock
-   * @param productId
-   * @return
+   * @param stock The new stock.
+   * @param productId The ID of the {@link Product} to be updated.
+   * @return The new stock value.
    */
   @PutMapping(value = "/{productId:\\d+}/stock",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},

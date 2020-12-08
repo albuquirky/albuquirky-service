@@ -37,28 +37,33 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "product_id", nullable = false, updatable = false)
   private Long id;
+
   /**
    * The name of the product
    */
   @NonNull
   @Column(name = "product_name", nullable = false)
   private String name;
-/**
- * The product description
- */
+
+  /**
+   * The product description
+   */
   private String description;
+
   /**
    * The price of the product
    */
   @NonNull
   @Column(nullable = false)
   private int price;
+
   /**
    * The stock of the product
    */
   @NonNull
   @Column(nullable = false)
   private int stock;
+
   /**
    * Date timestamp of the product's posted date
    */
@@ -67,6 +72,7 @@ public class Product {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date postedDate;
+
   /**
    * The ManyToOne side of the relationship between {@link Profile} and {@link Product}
    */
@@ -74,6 +80,7 @@ public class Product {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id", nullable = false, updatable = false)
   private Profile profile;
+
   /**
    * The OneToMany side of the relationship between {@link Image} and {@link Product} which shows
    * a list of product images
@@ -83,6 +90,7 @@ public class Product {
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("created DESC")
   private final List<Image> productImages = new LinkedList<>();
+
   /**
    * The OneToMany side of the relationship between {@link ProductOnOrder} and {@link Product} which
    * gives a list of order items

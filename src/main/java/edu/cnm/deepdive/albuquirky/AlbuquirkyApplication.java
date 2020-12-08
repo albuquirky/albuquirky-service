@@ -22,8 +22,8 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 public class AlbuquirkyApplication {
 
   /**
-   * Construct
-   * @param args
+   * The main class from which the application is launched.
+   * @param args The varargs argument passed from the command line.
    */
   public static void main(String[] args) {
     SpringApplication.run(AlbuquirkyApplication.class, args);
