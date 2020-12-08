@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.albuquirky.controller;
 
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
+import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import edu.cnm.deepdive.albuquirky.service.ProfileService;
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,16 +28,16 @@ public class ProfileController {
   private final ProfileService profileService;
 
   /**
-   * Constructs the instance of ProfileService object
-   * @param profileService
+   * Constructs the instance of ProfileService object.
+   * @param profileService The {@link ProfileService} to be created.
    */
   public ProfileController(ProfileService profileService) {
     this.profileService = profileService;
   }
 
   /**
-   * The Get method which returns the current authenticated profile
-   * @param auth
+   * The Get method which returns the current authenticated profile.
+   * @param auth The user authentication.
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public Profile me(Authentication auth) {
@@ -45,10 +45,10 @@ public class ProfileController {
   }
 
   /**
-   * The Get method which returns the users id
-   * @param userId
-   * @param auth
-   * @return
+   * The Get method which returns the {@link Profile} matching the ID provided.
+   * @param userId The ID of the {@link Profile} requested.
+   * @param auth The user authentication.
+   * @return The {@link Profile} matching the ID provided.
    */
   @GetMapping(value = "/{userId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Profile getOrder(@PathVariable Long userId, Authentication auth) {
@@ -57,9 +57,9 @@ public class ProfileController {
   }
 
   /**
-   * The Get method which returns the username from the AuthProfile
-   * @param auth
-   * @return
+   * The Get method which returns the username for the current user.
+   * @param auth The user authentication.
+   * @return The current user's username.
    */
   @GetMapping(value = "/me/username", produces = MediaType.APPLICATION_JSON_VALUE)
   public String getUsername(Authentication auth) {
@@ -68,9 +68,9 @@ public class ProfileController {
 
   /**
    * The Put method which allows the profile to update their username
-   * @param name
-   * @param auth
-   * @return
+   * @param name The new username.
+   * @param auth The user authentication.
+   * @return The updated username.
    */
   @PutMapping(value = "/me/username",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
@@ -82,20 +82,20 @@ public class ProfileController {
   }
 
   /**
-   * The Get method which returns the profile image
-   * @param auth
-   * @return
+   * The Get method which returns the profile image.
+   * @param auth The user authentication.
+   * @return The user's current profile image.
    */
   @GetMapping(value = "/me/image", produces = MediaType.APPLICATION_JSON_VALUE)
-  public String getImage(Authentication auth) {
+  public ProfilePicture getImage(Authentication auth) {
     return getAuthProfile(auth).getImage();
   }
 
   /**
-   * The Put method which lets the Profile upload an image
-   * @param file
-   * @param auth
-   * @return
+   * The Put method which updates the current user's profile image.
+   * @param file The path to the new image.
+   * @param auth The user authentication.
+   * @return The updated profile image.
    * @throws IOException
    */
   @PutMapping(value = "/me/image",
@@ -107,9 +107,9 @@ public class ProfileController {
   }
 
   /**
-   * The Get method which returns the profile address
-   * @param auth
-   * @return
+   * The Get method which returns the profile address.
+   * @param auth The user authentication.
+   * @return The user's current address.
    */
   @GetMapping(value = "/me/address", produces = MediaType.APPLICATION_JSON_VALUE)
   public String getAddress(Authentication auth) {
@@ -117,10 +117,10 @@ public class ProfileController {
   }
 
   /**
-   * The Put method which lets the Profile update their address
-   * @param address
-   * @param auth
-   * @return
+   * The Put method which lets the current user update their address.
+   * @param address The new user address.
+   * @param auth The user authentication.
+   * @return The updated user address.
    */
   @PutMapping(value = "/me/address",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},

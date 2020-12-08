@@ -15,38 +15,40 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.IndexColumn;
 import org.springframework.lang.NonNull;
 
 /**
- *  * This is the {@code Commission} entity class, which declares the attributes needed for each commission
- *  * which includes, the commission id, the commission request, waitlist position, the seller id,
- *  * a timestamp, the {@link Commission} id and the {@link Product} id. Both seller id and commissioner
- *  * id are annotated by @ManyToOne coming from {@link Profile}. Commissions accepted by the commissioner
- *  * become {@link Product}.
+ *  This is the {@code Commission} entity class, which declares the attributes needed for each
+ *  commission which includes, the commission ID, the commission request, waitlist position, the
+ *  seller ID, a timestamp, the {@link Commission} ID and the {@link Product} ID. Both seller ID and
+ *   commissioner ID are annotated by @ManyToOne coming from {@link Profile}. Commissions accepted
+ *   by the commissioner become {@link Product}.
  */
 @Entity
 @Table(indexes = {@Index(columnList = "waitlistPosition")})
 public class Commission {
 
   /**
-   * The Primary Key for the class, the commission id
+   * The Primary Key for the class, the commission ID.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "commission_id", nullable = false, updatable = false)
   private Long id;
+
   /**
-   * A commission request
+   * The details of the commission being requested.
    */
   @NonNull
   @Column(length = 200, nullable = false)
   private String commissionRequest;
+
   /**
-   * The waitlist postion for a commission
+   * The waitlist postion for a commission.
    */
   @NonNull
   private int waitlistPosition;
+
   /**
    * The ManyToOne side of the relationship between {@link Commission} and {@link Profile}. This is
    * is the seller of the commission.
@@ -54,17 +56,19 @@ public class Commission {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "seller_id")
   private Profile seller;
+
   /**
-   * Date timestamp for the commission
+   * The timestamp for when the commission was created.
    */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date timestamp;
+
   /**
    * The ManyToOne side of the relationship between {@link Commission} and {@link Profile}. This is
-   * is the buyer of the commission.
+   * the buyer of the commission.
    */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
@@ -72,7 +76,7 @@ public class Commission {
   private Profile commissioner;
 
   /**
-   * The OneToOne relationship joined by {@link Product}
+   * The OneToOne relationship joined by {@link Product}.
    */
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "product_id")
@@ -80,14 +84,16 @@ public class Commission {
 
 
   /**
-   * Returns the {@link Commission#id}
+   * Gets the ID of the {@link Commission}.
+   * @return The {@link Commission}.
    */
   public Long getId() {
     return id;
   }
 
   /**
-   * Returns the {@link Commission#commissionRequest}
+   * Returns the commission request for the {@link Commission}.
+   * @return The commission request for the {@link Commission}.
    */
   @NonNull
   public String getCommissionRequest() {
@@ -95,15 +101,16 @@ public class Commission {
   }
 
   /**
-   * Sets the {@link Commission#commissionRequest}
-   * @param commissionRequest- String
+   * Sets the commission request for the {@link Commission}.
+   * @param commissionRequest The commission request content.
    */
   public void setCommissionRequest(@NonNull String commissionRequest) {
     this.commissionRequest = commissionRequest;
   }
 
   /**
-   * Returns the {@link Commission#waitlistPosition}
+   *
+   * @return
    */
   public int getWaitlistPosition() {
     return waitlistPosition;
@@ -155,6 +162,7 @@ public class Commission {
   public void setCommissioner(@NonNull Profile commissioner) {
     this.commissioner = commissioner;
   }
+
   /**
    *
    * @return product- Product
@@ -162,6 +170,7 @@ public class Commission {
   public Product getProduct() {
     return product;
   }
+
   /**
    * Sets
    * @param product- Product

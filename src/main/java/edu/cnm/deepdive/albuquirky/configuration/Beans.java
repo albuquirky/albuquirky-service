@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class Beans {
 
   /**
-   * This method provides a new instance of Random.
-   * @return new instance of Random.
+   * This method provides a new instance of {@code Random}.
+   * @return A new instance of Random.
    */
   @Bean
   public Random basicRandom() {

@@ -24,6 +24,7 @@ public class ProductOnOrder {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "product_on_order_id", nullable = false, updatable = false)
   private Long id;
+
   /**
    * This is the ManyToOne side of the of the relationship between {@link Product} and
    * {@link ProductOnOrder}.
@@ -32,6 +33,7 @@ public class ProductOnOrder {
   @ManyToOne
   @JoinColumn(name = "product_id", nullable = false, updatable = false)
   private Product product;
+
   /**
    * This is the ManyToOne side of the of the relationship between {@link Order} and
    * {@link ProductOnOrder}.
@@ -40,12 +42,14 @@ public class ProductOnOrder {
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false, updatable = false)
   private Order order;
+
   /**
    * The item quantity for product on order
    */
   @NonNull
   @Column(updatable = false, nullable = false)
   private int itemQuantity;
+
   /**
    * Unit price for a product on order
    */

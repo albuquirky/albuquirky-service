@@ -15,9 +15,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 /**
- * This is the {@code Image} entity class, which declares the attributes for the image. Included are the image
- * id, image file name, the image description (not required), {@link Product} id and a created timestamp.
- * {@link Product} id is annotated by a @ManyToOne.
+ * This is the {@link Image} entity class, which declares the attributes for the image. Included
+ * are the image ID, image file name, the image description (not required), the {@link Product}
+ * ID, and a created timestamp. The {@link Product} ID is annotated by a @ManyToOne.
  */
 @Entity
 public class Image {
@@ -38,8 +38,10 @@ public class Image {
   /**
    * The image description
    */
+
   @Column(name = "image_description")
   private String imageDescription;
+
   /**
    * The ManyToOne side of the relationship between {@link Product} and {@link Image} for the image
    * of a product.
@@ -48,6 +50,7 @@ public class Image {
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "product_id", nullable = false, updatable = false)
   private Product product;
+
   /**
    * Date timestamp of the created image
    */
