@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    * Constructor for the {@code SecurityConfiguration} class. It sets the reference to the
    * {@code ProfileService} for the field.
    *
-   * @param profileService is an instance of {@link ProfileService}.
+   * @param profileService An instance of {@link ProfileService}.
    */
   @Autowired
   public SecurityConfiguration(ProfileService profileService) {
@@ -69,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    * This method validates the JWT token received from the Google Cloud service, and returns a
    * {@code JwtDecoder} object.
    *
-   * @return decoded JWT
+   * @return The decoded {@code JWT}.
    */
   @BeanProperty
   public JwtDecoder jwtDecoder(){

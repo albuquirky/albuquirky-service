@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * The ImageService is a class the @Service for the ImageController. This class gives the
- * ImageController the logic necessary to run and perform tasks. {@link Image}
+ * This class handles all of the business logic for getting, putting, posting, and deleting items
+ * from the {@link Image} on behalf of the {@link ImageService} class, using methods from the
+ * {@link ImageRepository} interface.
  */
 @Service
 public class ImageService {
@@ -20,7 +21,7 @@ public class ImageService {
 
   /**
    * Creates instances of the ImageRepository.
-   * @param imageRepository
+   * @param imageRepository The {@link ImageRepository} to be created.
    */
   @Autowired
   public ImageService(ImageRepository imageRepository) {
@@ -28,9 +29,9 @@ public class ImageService {
   }
 
   /**
-   * This will be used to save images pertaining to the user profile or product listing.
-   * @param image
-   * @return
+   * Method to save images pertaining to the user profile or product listing.
+   * @param image The {@link Image} to be saved.
+   * @return The {@link Image} that was saved.
    */
   public Image save(Image image) {
     return imageRepository.save(image);
@@ -39,9 +40,9 @@ public class ImageService {
   /**
    * This will remove an image if needed by the user it pertains to. It will also throw an
    * exception if someone without access attempts to remove the photo.
-   * @param image
-   * @param profile
-   * @return
+   * @param image The {@link Image} object to be deleted.
+   * @param profile The {@link Profile} connected to the {@link Image}.
+   * @return The {@link Image} object that was deleted.
    */
   public Image remove(Image image, Profile profile) {
     if (!image.getProduct().getProfile().getId().equals(profile.getId())) {
@@ -54,17 +55,17 @@ public class ImageService {
 
   /**
    * Method to get a specific image.
-   * @param id
-   * @return
+   * @param id The ID of the {@link Image} being requested.
+   * @return The matching {@link Image}.
    */
   public Optional<Image> get(long id) {
     return imageRepository.findById(id);
   }
 
   /**
-   * This will be used to get images tied to a specific product.
-   * @param product
-   * @return
+   * Method to get images tied to a specific product.
+   * @param product The {@link Product} linked to the images requested.
+   * @return A {@code List} of {@link Image} objects associated with the {@link Product}.
    */
   public List<Image> getAllByProduct(Product product) {
     return imageRepository.getAllByProductOrderByCreatedAsc(product);

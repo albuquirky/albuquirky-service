@@ -3,7 +3,6 @@ package edu.cnm.deepdive.albuquirky.service;
 import edu.cnm.deepdive.albuquirky.model.dao.CommissionRepository;
 import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Commission;
-import edu.cnm.deepdive.albuquirky.model.entity.Image;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,12 +28,11 @@ public class CommissionService {
    */
   private final ProfileRepository profileRepository;
 
-
   /**
    * Constructor for the instances of {@link CommissionRepository} and {@link ProfileRepository}.
    *
-   * @param commissionRepository is an instance of {@link CommissionRepository} to be initialized.
-   * @param profileRepository is an instance of {@link ProfileRepository} to be initialized.
+   * @param commissionRepository An instance of {@link CommissionRepository} to be initialized.
+   * @param profileRepository An instance of {@link ProfileRepository} to be initialized.
    */
   @Autowired
   public CommissionService(CommissionRepository commissionRepository,
@@ -46,7 +44,7 @@ public class CommissionService {
   /**
    * Method to save an entire {@link Commission}.
    *
-   * @param commission is an instance of {@link Commission} to be saved.
+   * @param commission An instance of {@link Commission} to be saved.
    */
   public Commission save(Commission commission) {
     return commissionRepository.save(commission);
@@ -55,8 +53,8 @@ public class CommissionService {
   /**
    * Method to save the seller and commissioner on a {@link Commission}.
    *
-   * @param commission is an instance of {@link Commission}.
-   * @param profile is an instance of {@link Profile} representing the commissioned party.
+   * @param commission An instance of {@link Commission}.
+   * @param profile An instance of {@link Profile} representing the commissioned party.
    */
   public Commission save(Commission commission, Profile profile) {
     return profileRepository.findById(commission.getSeller().getId())
@@ -70,6 +68,7 @@ public class CommissionService {
 
   /**
    * Method to delete a commission if the user is either the commissioner or the seller.
+   *
    * @param commission The {@link Commission} to be deleted.
    * @param profile The {@link {Profile} of the user attempting to delete the commission.
    * @return The Commission being deleted.
@@ -86,7 +85,9 @@ public class CommissionService {
   }
 
   /**
-   * The image file name
+   * Method to return a commission that matches a specific ID.
+   * @param id The ID of the {@link Commission} being requested.
+   * @return An {@code Optional} containing the matching {@link Commission}.
    */
   public Optional<Commission> get(long id) {
     return commissionRepository.findById(id);
@@ -95,7 +96,7 @@ public class CommissionService {
   /**
    * Method to return a list of (@link Commission} by the commissioned party, ordered by timestamp.
    *
-   * @param seller is an instance of {@link Profile} representing the commissioned party.
+   * @param seller An instance of {@link Profile} representing the commissioned party.
    */
   public List<Commission> getBySeller(Profile seller) {
     return commissionRepository.getAllBySellerOrderByTimestamp(seller);
@@ -104,7 +105,7 @@ public class CommissionService {
   /**
    * Method to return a truncated list of {@link Commission} representing the user's waitlist.
    *
-   * @param seller is an instance of {@link Profile} representing the commissioned party.
+   * @param seller An instance of {@link Profile} representing the commissioned party.
    */
   public List<Commission> getWaitlist(Profile seller) {
     return commissionRepository.findBySellerAndWaitlistPositionGreaterThanOrderByWaitlistPosition(seller, 0);
@@ -113,7 +114,7 @@ public class CommissionService {
   /**
    * Method to return a list of {@link Commission} by the commissioning party, ordered by timestamp.
    *
-   * @param commissioner is an instance of {@link Profile} representing the commissioning party.
+   * @param commissioner An instance of {@link Profile} representing the commissioning party.
    */
   public List<Commission> getByCommissioner(Profile commissioner) {
     return commissionRepository.findByCommissionerOrderByTimestamp(commissioner);

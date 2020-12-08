@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The OrderController class is the @RestController that maps the endpoints of "/orders" for
- * communication between the server-side and client-side for {@link Order}
+ * communication between the server-side and client-side for {@link Order}.
  */
 @RestController
 @RequestMapping("/orders")
@@ -27,17 +27,17 @@ public class OrderController {
   private final OrderService orderService;
 
   /**
-   * Constructs the instance of OrderService object
-   * @param orderService
+   * Constructs the instance of OrderService object.
+   * @param orderService The instance of {@link OrderService} to initialize.
    */
   public OrderController(OrderService orderService) {
     this.orderService = orderService;
   }
 
   /**
-   * The Get method which returns a list of a profile's orders
-   * @param auth
-   * @return
+   * The Get method which returns a list of the user's placed orders.
+   * @param auth The user authentication.
+   * @return A {@code List} of {@link Order} objects representing the user's placed orders.
    */
   @GetMapping(value = "/user_orders", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Order> getUserOrders(Authentication auth) {
@@ -45,9 +45,20 @@ public class OrderController {
   }
 
   /**
-   * The Get method which returns an order by the order id
-   * @param orderId
-   * @return
+   * The Get method which returns a list of the orders the user is responsible for fulfilling.
+   * @param auth The user authentication.
+   * @return A {@code List} of {@link Order} objects representing the orders the user is responsible
+   *  for fulfilling.
+   */
+  @GetMapping(value = "/user_sold_orders", produces = MediaType.APPLICATION_JSON_VALUE)
+  public List<Order> getUserSoldOrders(Authentication auth) {
+    return orderService.getBySeller(getAuthProfile(auth));
+  }
+
+  /**
+   * The Get method which returns an order by the order ID.
+   * @param orderId The ID of the {@link Order} object requested.
+   * @return The {@link Order} object with the ID requested.
    */
   @GetMapping(value = "/{orderId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Order getOrder(@PathVariable long orderId) {

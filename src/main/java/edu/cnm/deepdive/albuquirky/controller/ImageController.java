@@ -33,9 +33,9 @@ public class ImageController {
   private final ProductService productService;
 
   /**
-   * Constructs the instances of ImageService object and ProductService object
-   * @param imageService
-   * @param productService
+   * Constructs the instances of {@link ImageService} object and {@link ProductService} object.
+   * @param imageService The instance of {@link ImageService} to initialize.
+   * @param productService The instance of {@link ProductService} to initialize.
    */
   public ImageController(ImageService imageService, ProductService productService) {
     this.imageService = imageService;
@@ -43,9 +43,9 @@ public class ImageController {
   }
 
   /**
-   * The Get method which returns a list of product images
-   * @param productId
-   * @return
+   * The Get method which returns a list of {@link Image} objects for a {@link Product}.
+   * @param productId The ID of the {@link Product} the user wants images for.
+   * @return A {@code List} of {@link Image} objects for the specified {@link Product}.
    */
   @GetMapping(value = "/{productId:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Image> getProductImages(@PathVariable long productId) {
@@ -67,9 +67,9 @@ public class ImageController {
 
 
   /**
-   * The Get method which returns an image id
-   * @param imageId
-   * @return
+   * The Get method for retrieving an {@link Image} object by its ID.
+   * @param imageId The ID of the {@link Image} object to be retrieved.
+   * @return The matching {@link Image} object.
    */
   @GetMapping(value = "/{imageId:\\d+}",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -94,9 +94,9 @@ public class ImageController {
   }
 
   /**
-   * The Get method which returns the description of an image
-   * @param imageId
-   * @return
+   * The Get method which returns the description of an image.
+   * @param imageId The ID of the {@link Image} object for which the description is required.
+   * @return The String description of the specified {@link Image}.
    */
   @GetMapping(value = "/{imageId:\\d+}/description",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -106,10 +106,10 @@ public class ImageController {
   }
 
   /**
-   * The Put method which allows updating the description of an image
-   * @param description
-   * @param imageId
-   * @return
+   * The Put method which allows updating the description of an image.
+   * @param description The new description contents.
+   * @param imageId The {@link Image} object to be updated.
+   * @return The description contents of the {@link Image} after being updated.
    */
   @PutMapping(value = "/{imageId:\\d+}/description",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},

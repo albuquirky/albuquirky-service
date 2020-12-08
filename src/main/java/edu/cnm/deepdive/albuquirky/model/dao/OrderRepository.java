@@ -18,4 +18,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
    */
   List<Order> getAllByBuyerOrderByPlacedDate(Profile buyer);
 
+  /**
+   * The getAllBySellerOrderByPlacedDate query lists orders sold by the user, ordered by the date
+   * placed.
+   * @param seller
+   * @return
+   */
+  List<Order> getAllBySellerOrderByPlacedDate(Profile seller);
+
 }

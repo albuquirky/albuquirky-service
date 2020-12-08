@@ -42,7 +42,7 @@ public class CommissionController {
   /**
    * The Get method which returns a list of commission from seller
    * @param auth The authorization for the user.
-   * @return A {@code List} of {@link Commission} objects.
+   * @return A {@code List} of {@link Commission} objects representing the user's waitlist.
    */
   @GetMapping(value = "/seller", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Commission> getCommissionsWhereSeller(Authentication auth) {
@@ -52,7 +52,7 @@ public class CommissionController {
   /**
    * The Get method which returns a list of commission from commissioner(buyer)
    * @param auth The authorization for the user.
-   * @return A {@code List} of {@link Commission} objects.
+   * @return A {@code List} of {@link Commission} objects representing those the user commissioned.
    */
   @GetMapping(value = "/buyer", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Commission> getCommissionsWhereCommissioner(Authentication auth) {
