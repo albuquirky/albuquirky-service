@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.albuquirky.controller;
 
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
+import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import edu.cnm.deepdive.albuquirky.service.ProfileService;
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -86,7 +87,7 @@ public class ProfileController {
    * @return The user's current profile image.
    */
   @GetMapping(value = "/me/image", produces = MediaType.APPLICATION_JSON_VALUE)
-  public String getImage(Authentication auth) {
+  public ProfilePicture getImage(Authentication auth) {
     return getAuthProfile(auth).getImage();
   }
 

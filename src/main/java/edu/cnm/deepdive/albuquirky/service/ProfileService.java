@@ -2,6 +2,7 @@ package edu.cnm.deepdive.albuquirky.service;
 
 import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
+import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -118,11 +119,14 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
    * @throws IOException
    */
   public String uploadFile(MultipartFile file, Profile profile) throws IOException {
+    ProfilePicture image = new ProfilePicture();
     String fileExtension = getFileExtension(file);
     String fileName = getRandomString();
     String newFileName = fileName + fileExtension;
     Files.copy(file.getInputStream(), uploadRoot.resolve(newFileName));
-    profile.setImage(newFileName);
+    image.setPath(fileName);
+    image.setUser(profile);
+    profile.setImage(image);
     profileRepository.save(profile);
     return newFileName;
   }

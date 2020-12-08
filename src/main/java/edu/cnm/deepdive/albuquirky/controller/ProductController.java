@@ -71,7 +71,7 @@ public class ProductController {
    * @param auth The authorization for the user.
    * @return The {@link Product} object that was created.
    */
-  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public Product post(@RequestBody Product product, Authentication auth) {
     product.setProfile(getAuthProfile(auth));

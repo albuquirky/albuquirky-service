@@ -37,6 +37,7 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "order_id", nullable = false, updatable = false)
   private Long id;
+
   /**
    * Date timestamp for the placed date of the order
    */
@@ -54,6 +55,12 @@ public class Order {
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "buyer_id", nullable = false, updatable = false)
   private Profile buyer;
+
+  @NonNull
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @JoinColumn(name = "seller_id", nullable = false, updatable = false)
+  private Profile seller;
+
   /**
    * The OneToMany side of the relationship between {@link ProductOnOrder} and {@link Order} which
    * gives a list of items on order
@@ -72,7 +79,8 @@ public class Order {
   }
 
   /**
-   * Returns the {@link Order#placedDate}
+   *
+   * @return
    */
   @NonNull
   public Date getPlacedDate() {

@@ -73,7 +73,8 @@ public class OrderService {
    * @return A {@code List} of {@link Order} objects sold by the specified user.
    */
   public List<Order> getBySeller(Profile profile) {
-    return orderRepository.getAllBySellerOrderByPlacedDate(profile);
+//    return orderRepository.getAllBySellerOrderByPlacedDate(profile);
+    return null;
   }
 
 }

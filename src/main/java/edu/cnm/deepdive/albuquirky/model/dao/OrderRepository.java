@@ -24,6 +24,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
    * @param seller
    * @return
    */
-  List<Order> getAllBySellerOrderByPlacedDate(Profile seller);
+//  List<Order> getAllBySellerOrderByPlacedDate(Profile seller);
 
 }

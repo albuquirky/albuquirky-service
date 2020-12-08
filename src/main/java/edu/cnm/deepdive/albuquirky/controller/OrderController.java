@@ -39,7 +39,7 @@ public class OrderController {
    * @param auth The user authentication.
    * @return A {@code List} of {@link Order} objects representing the user's placed orders.
    */
-  @GetMapping(value = "/user_orders", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/user-orders", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Order> getUserOrders(Authentication auth) {
     return orderService.getByBuyer(getAuthProfile(auth));
   }
@@ -50,7 +50,7 @@ public class OrderController {
    * @return A {@code List} of {@link Order} objects representing the orders the user is responsible
    *  for fulfilling.
    */
-  @GetMapping(value = "/user_sold_orders", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/user-sold-orders", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Order> getUserSoldOrders(Authentication auth) {
     return orderService.getBySeller(getAuthProfile(auth));
   }

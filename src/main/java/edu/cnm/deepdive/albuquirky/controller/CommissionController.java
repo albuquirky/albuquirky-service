@@ -103,7 +103,7 @@ public class CommissionController {
    * @param commissionId The ID of the {@link Commission}.
    * @return The matching {@link Commission} object.
    */
-  @GetMapping(value = "/{commissionId:\\d+}/commission_request",
+  @GetMapping(value = "/{commissionId:\\d+}/commission-request",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String getCommissionRequest(@PathVariable long commissionId) {
     Commission commission = getCommission(commissionId);
@@ -116,7 +116,7 @@ public class CommissionController {
    * @param commissionId The ID of the {@link Commission}.
    * @return The updated {@link Commission} request field content.
    */
-  @PutMapping(value = "/{commissionId:\\d+}/commission_request",
+  @PutMapping(value = "/{commissionId:\\d+}/commission-request",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
   public String updateCommissionRequest(
