@@ -1,8 +1,11 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -12,12 +15,15 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 /**
- *
+ * This is the Profile Picture entity, which represents the image stored in the database that is
+ * presented for the user on their profile page. It defines a creation timestamp, a filename, a
+ * file path, a file extension, and an ID for the user {@link Profile} it represents.
  */
 @Entity
 public class ProfilePicture {
 
   @NonNull
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Id
   @Column(nullable = false, updatable = false)
   private Long id;
@@ -43,11 +49,12 @@ public class ProfilePicture {
   @NonNull
   @OneToOne
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  @JsonIgnore
   private Profile user;
 
   /**
-   *
-   * @return
+   * Gets the ID for the profile picture.
+   * @return The ID.
    */
   @NonNull
   public Long getId() {
@@ -55,8 +62,8 @@ public class ProfilePicture {
   }
 
   /**
-   *
-   * @return
+   * Gets the creation timestamp for the profile picture.
+   * @return The profile picture creation timestamp.
    */
   @NonNull
   public Date getCreated() {
@@ -64,16 +71,16 @@ public class ProfilePicture {
   }
 
   /**
-   *
-   * @param created
+   * Sets the creation timestamp for the profile picture.
+   * @param created The updated timestamp.
    */
   public void setCreated(@NonNull Date created) {
     this.created = created;
   }
 
   /**
-   *
-   * @return
+   * The filename for the profile picture.
+   * @return The profile picture's filename.
    */
   @NonNull
   public String getName() {
@@ -81,16 +88,16 @@ public class ProfilePicture {
   }
 
   /**
-   *
-   * @param name
+   * Sets the profile picture's filename.
+   * @param name The updated filename.
    */
   public void setName(@NonNull String name) {
     this.name = name;
   }
 
   /**
-   *
-   * @return
+   * Gets the file path for the profile picture.
+   * @return The current file path.
    */
   @NonNull
   public String getPath() {
@@ -98,16 +105,16 @@ public class ProfilePicture {
   }
 
   /**
-   *
-   * @param path
+   * Sets the file path for the profile picture.
+   * @param path The updated file path.
    */
   public void setPath(@NonNull String path) {
     this.path = path;
   }
 
   /**
-   *
-   * @return
+   * Gets the file extension for the profile picture.
+   * @return The current file extension.
    */
   @NonNull
   public String getContentType() {
@@ -115,16 +122,16 @@ public class ProfilePicture {
   }
 
   /**
-   *
-   * @param contentType
+   * Sets the file extension for the profile picture.
+   * @param contentType The updated file extension.
    */
   public void setContentType(@NonNull String contentType) {
     this.contentType = contentType;
   }
 
   /**
-   *
-   * @return
+   * Gets the associated {@link Profile} for the profile picture.
+   * @return The {@link Profile} using this profile picture.
    */
   @NonNull
   public Profile getUser() {
@@ -132,8 +139,8 @@ public class ProfilePicture {
   }
 
   /**
-   *
-   * @param user
+   * Sets the associated {@link Profile} for the profile picture.
+   * @param user The new {@link Profile} using this profile picture.
    */
   public void setUser(@NonNull Profile user) {
     this.user = user;

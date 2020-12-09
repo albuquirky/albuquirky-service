@@ -3,7 +3,6 @@ package edu.cnm.deepdive.albuquirky.model.dao;
 import edu.cnm.deepdive.albuquirky.model.entity.Order;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,17 +12,17 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
   /**
    * The getAllByBuyerOrderByPlaceDate query list orders placed by the buyer ordered by date.
-   * @param buyer current profile logged in
-   * @return list of orders for the buyer
+   * @param buyer The current {@link Profile} logged in.
+   * @return The {@code List} of {@link Order} objects the user placed.
    */
   List<Order> getAllByBuyerOrderByPlacedDate(Profile buyer);
 
   /**
    * The getAllBySellerOrderByPlacedDate query lists orders sold by the user, ordered by the date
    * placed.
-   * @param seller
-   * @return
+   * @param seller The current {@link Profile} logged in.
+   * @return The {@code List} of {@link Order} objects the user sold.
    */
-//  List<Order> getAllBySellerOrderByPlacedDate(Profile seller);
+  List<Order> getAllBySellerOrderByPlacedDate(Profile seller);
 
 }

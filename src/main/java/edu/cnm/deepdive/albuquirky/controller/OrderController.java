@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.albuquirky.controller;
 
 import edu.cnm.deepdive.albuquirky.model.entity.Order;
+import edu.cnm.deepdive.albuquirky.model.entity.Product;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import edu.cnm.deepdive.albuquirky.service.OrderService;
 import java.util.List;
@@ -74,7 +75,7 @@ public class OrderController {
   @PostMapping(
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
-  public Order post(@RequestBody Order order, Authentication auth) {
+  public Order post(@RequestBody Order order, Product product, Authentication auth) {
     return orderService.save(order, getAuthProfile(auth));
   }
 

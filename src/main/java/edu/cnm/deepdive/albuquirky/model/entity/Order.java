@@ -21,36 +21,26 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 /**
- * This is the {@code Order} entity class, which declares the attributes needed for orders. Those include
- * the {@link Order#id}, a {@link Order#placedDate} and buyer id which is annotated by a @ManyToOne
- * from {@link Profile}. A @OneToMany annotation for items on order which returns a list of items
- * on order coming from {@link ProductOnOrder}.
+ * This is the {@code Order} entity class, which declares the attributes needed for orders. Those
+ * include the {@link Order#id}, a {@link Order#placedDate} and buyer id which is annotated by a
+ * @ManyToOne from {@link Profile}. A @OneToMany annotation for items on order which returns a list
+ * of items on order coming from {@link ProductOnOrder}.
  */
 @Entity
 @Table(name = "placed_order")
 public class Order {
 
-  /**
-   * The primary key of the class, the order id
-   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "order_id", nullable = false, updatable = false)
   private Long id;
 
-  /**
-   * Date timestamp for the placed date of the order
-   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date placedDate;
 
-  /**
-   * The ManyToOne side of the relationship between {@link Profile} and {@link Order}, the order's
-   * buyer.
-   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "buyer_id", nullable = false, updatable = false)
@@ -61,10 +51,6 @@ public class Order {
   @JoinColumn(name = "seller_id", nullable = false, updatable = false)
   private Profile seller;
 
-  /**
-   * The OneToMany side of the relationship between {@link ProductOnOrder} and {@link Order} which
-   * gives a list of items on order
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
@@ -72,15 +58,16 @@ public class Order {
   private final List<ProductOnOrder> itemsOnOrder = new LinkedList<>();
 
   /**
-   * Returns the {@link Order#id}
+   * Gets the ID for the order.
+   * @return The order's ID.
    */
   public Long getId() {
     return id;
   }
 
   /**
-   *
-   * @return
+   * Gets the creation timestamp for when the order was placed.
+   * @return The creation timestamp.
    */
   @NonNull
   public Date getPlacedDate() {
@@ -88,7 +75,8 @@ public class Order {
   }
 
   /**
-   * Returns the {@link Order#buyer}
+   * Gets the buying {@link Profile}.
+   * @return The {@link Profile} that placed the order.
    */
   @NonNull
   public Profile getBuyer() {
@@ -104,7 +92,7 @@ public class Order {
   }
 
   /**
-   *
+   * Gets the items on the order.
    * @return List of itemsOnOrder
    */
   @NonNull

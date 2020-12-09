@@ -28,20 +28,11 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  /**
-   * Field for the {@link ProfileService} reference.
-   */
   private final ProfileService profileService;
 
-  /**
-   * Field for the issuer URI from the Google Cloud service.
-   */
   @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
   private String issuerUri;
 
-  /**
-   * Field for the client ID from the Google Cloud service.
-   */
   @Value("${spring.security.oauth2.resourceserver.jwt.client-id}")
   private String clientId;
 
@@ -69,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    * This method validates the JWT token received from the Google Cloud service, and returns a
    * {@code JwtDecoder} object.
    *
-   * @return The decoded {@code JWT}.
+   * @return The {@code JWT} token decoder.
    */
   @BeanProperty
   public JwtDecoder jwtDecoder(){

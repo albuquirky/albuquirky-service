@@ -10,55 +10,40 @@ import javax.persistence.ManyToOne;
 import org.springframework.lang.NonNull;
 
 /**
- * This is the {@code ProductOnOrder} entity class, which declares the attributes needed for products on order
- * which include, {@link ProductOnOrder#id}, {@link ProductOnOrder#itemQuantity} and the unit price.
- * Two attributes that are annotated @ManyToOne are the {@link Product} id and the {@link Order} id.
+ * This is the {@code ProductOnOrder} entity class, which declares the attributes needed for
+ * products on order which include, {@link ProductOnOrder#id}, {@link ProductOnOrder#itemQuantity}
+ * and the unit price. Two attributes that are annotated @ManyToOne are the {@link Product} ID and
+ * the {@link Order} ID.
  */
 @Entity
 public class ProductOnOrder {
 
-  /**
-   * The Primary Key for the class, the product on order id
-   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "product_on_order_id", nullable = false, updatable = false)
   private Long id;
 
-  /**
-   * This is the ManyToOne side of the of the relationship between {@link Product} and
-   * {@link ProductOnOrder}.
-   */
   @NonNull
   @ManyToOne
   @JoinColumn(name = "product_id", nullable = false, updatable = false)
   private Product product;
 
-  /**
-   * This is the ManyToOne side of the of the relationship between {@link Order} and
-   * {@link ProductOnOrder}.
-   */
   @NonNull
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false, updatable = false)
   private Order order;
 
-  /**
-   * The item quantity for product on order
-   */
   @NonNull
   @Column(updatable = false, nullable = false)
   private int itemQuantity;
 
-  /**
-   * Unit price for a product on order
-   */
   @NonNull
   @Column(updatable = false, nullable = false)
   private int unitPrice;
 
   /**
    * Returns the {@link ProductOnOrder#id}
+   * @return The ID for the ProductOnOrder.
    */
   public Long getId() {
     return id;
@@ -66,6 +51,7 @@ public class ProductOnOrder {
 
   /**
    * Returns the {@link Product} id
+   * @return The ID of the {@link Product}.
    */
   @NonNull
   public Product getProduct() {
@@ -82,6 +68,7 @@ public class ProductOnOrder {
 
   /**
    * Returns the {@link Order} id
+   * @return The ID of the {@link Order}.
    */
   @NonNull
   public Order getOrder() {
@@ -98,6 +85,7 @@ public class ProductOnOrder {
 
   /**
    * Returns the {@link ProductOnOrder#itemQuantity}
+   * @return The quantity of the {@link Product} on the order.
    */
   public int getItemQuantity() {
     return itemQuantity;
@@ -113,6 +101,7 @@ public class ProductOnOrder {
 
   /**
    * Returns the {@link ProductOnOrder#unitPrice}
+   * @return The price for the {@link Product}.
    */
   public int getUnitPrice() {
     return unitPrice;

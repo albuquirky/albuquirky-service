@@ -21,7 +21,7 @@ import org.springframework.lang.NonNull;
 
 /**
  * This is the {@code Product} entity class, which declares the attributes needed for products which
- * includes, the product id, username, product description (not required), {@link Product#name},
+ * includes, the product ID, username, product description (not required), {@link Product#name},
  * {@link Product#price}, {@link Product#stock}, {@link Product#postedDate} and the {@link Profile}
  * id which is annotated by a @ManyToOne. Two attributes which are annotated by a @OneToMany are
  * {@link Product#productImages} which gives a list of {@link Image} for a {@link Product} and order
@@ -30,71 +30,42 @@ import org.springframework.lang.NonNull;
 @Entity
 public class Product {
 
-  /**
-   * The primary key of the class, the product id
-   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "product_id", nullable = false, updatable = false)
   private Long id;
 
-  /**
-   * The name of the product
-   */
   @NonNull
   @Column(name = "product_name", nullable = false)
   private String name;
 
-  /**
-   * The product description
-   */
   private String description;
 
-  /**
-   * The price of the product
-   */
   @NonNull
   @Column(nullable = false)
   private int price;
 
-  /**
-   * The stock of the product
-   */
   @NonNull
   @Column(nullable = false)
   private int stock;
 
-  /**
-   * Date timestamp of the product's posted date
-   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date postedDate;
 
-  /**
-   * The ManyToOne side of the relationship between {@link Profile} and {@link Product}
-   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "profile_id", nullable = false, updatable = false)
   private Profile profile;
 
-  /**
-   * The OneToMany side of the relationship between {@link Image} and {@link Product} which shows
-   * a list of product images
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "product",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
   @OrderBy("created DESC")
   private final List<Image> productImages = new LinkedList<>();
 
-  /**
-   * The OneToMany side of the relationship between {@link ProductOnOrder} and {@link Product} which
-   * gives a list of order items
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
@@ -127,7 +98,8 @@ public class Product {
   }
 
   /**
-   * Returns the {@link Product#description}
+   * Gets the product description.
+   * @return The product description.
    */
   public String getDescription() {
     return description;
@@ -142,7 +114,8 @@ public class Product {
   }
 
   /**
-   * Returns the {@link Product#price}
+   * Gets the product price.
+   * @return The product's price.
    */
   public int getPrice() {
     return price;
@@ -157,7 +130,8 @@ public class Product {
   }
 
   /**
-   * Returns the {@link Product#stock}
+   * Gets the remaining inventory for the product.
+   * @return The current quantity remaining in-stock for the product.
    */
   public int getStock() {
     return stock;
@@ -172,7 +146,8 @@ public class Product {
   }
 
   /**
-   * Returns the {@link Product#postedDate}
+   * Gets the creation timestamp for the product.
+   * @return The timestamp for when the product was first posted.
    */
   @NonNull
   public Date getPostedDate() {
@@ -180,7 +155,8 @@ public class Product {
   }
 
   /**
-   * Returns the {@link Profile}
+   * Gets the {@link Profile} selling the product.
+   * @return The seller {@link Profile}.
    */
   @NonNull
   public Profile getProfile() {
@@ -196,7 +172,7 @@ public class Product {
   }
 
   /**
-   *
+   * Gets a list of {@link Image} objects for the product.
    * @return List of productImages
    */
   @NonNull
@@ -205,7 +181,7 @@ public class Product {
   }
 
   /**
-   *
+   * Gets a list of products on an {@link Order}.
    * @return List of orderItems
    */
   @NonNull
