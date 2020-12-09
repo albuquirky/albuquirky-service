@@ -15,7 +15,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 /**
- *
+ * This is the Profile Picture entity, which represents the image stored in the database that is
+ * presented for the user on their profile page. It defines a creation timestamp, a filename, a
+ * file path, a file extension, and an ID for the user {@link Profile} it represents.
  */
 @Entity
 public class ProfilePicture {
