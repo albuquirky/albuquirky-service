@@ -76,8 +76,8 @@ public class ProfileController {
    * @return The updated username.
    */
   @PutMapping(value = "/me/username",
-      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+      consumes = {MediaType.APPLICATION_JSON_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
   public String updateUsername(@RequestBody String name, Authentication auth) {
     Profile profile = getAuthProfile(auth);
     profile.setUsername(name);
@@ -135,8 +135,8 @@ public class ProfileController {
    * @return The updated user address.
    */
   @PutMapping(value = "/me/address",
-      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+      consumes = {MediaType.APPLICATION_JSON_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
   public String updateAddress(@RequestBody String address, Authentication auth) {
     Profile profile = getAuthProfile(auth);
     profile.setAddress(address);
