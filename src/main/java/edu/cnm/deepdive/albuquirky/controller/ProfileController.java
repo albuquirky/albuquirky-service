@@ -5,8 +5,12 @@ import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import edu.cnm.deepdive.albuquirky.service.ProfileService;
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import org.springframework.core.io.Resource;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,9 +90,20 @@ public class ProfileController {
    * @param auth The user authentication.
    * @return The user's current profile image.
    */
-  @GetMapping(value = "/me/image", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ProfilePicture getImage(Authentication auth) {
-    return getAuthProfile(auth).getImage();
+  @GetMapping(value = "/me/image")
+  public ResponseEntity<Resource> getImage(Authentication auth) throws IOException {
+    Profile profile = getAuthProfile(auth);
+    ProfilePicture image = profile.getImage();
+    if (image != null) {
+      Resource file = profileService.retrieve(profile);
+      return ResponseEntity.ok()
+          .header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", image.getName()))
+          .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(file.contentLength()))
+          .header(HttpHeaders.CONTENT_TYPE, image.getContentType())
+          .body(file);
+    } else {
+      throw new NoSuchElementException();
+    }
   }
 
   /**
@@ -98,10 +113,8 @@ public class ProfileController {
    * @return The updated profile image.
    * @throws IOException
    */
-  @PutMapping(value = "/me/image",
-      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE},
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
-  public String uploadImage(@RequestBody MultipartFile file, Authentication auth)
+  @PutMapping(value = "/me/image", produces = {MediaType.APPLICATION_JSON_VALUE})
+  public Profile uploadImage(@RequestBody MultipartFile file, Authentication auth)
       throws IOException {
     return profileService.uploadFile(file, getAuthProfile(auth));
   }

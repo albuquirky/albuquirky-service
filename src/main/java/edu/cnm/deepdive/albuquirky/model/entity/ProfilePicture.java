@@ -1,8 +1,11 @@
 package edu.cnm.deepdive.albuquirky.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -18,6 +21,7 @@ import org.springframework.lang.NonNull;
 public class ProfilePicture {
 
   @NonNull
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Id
   @Column(nullable = false, updatable = false)
   private Long id;
@@ -43,6 +47,7 @@ public class ProfilePicture {
   @NonNull
   @OneToOne
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  @JsonIgnore
   private Profile user;
 
   /**

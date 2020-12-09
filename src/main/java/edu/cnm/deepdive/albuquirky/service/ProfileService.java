@@ -4,6 +4,7 @@ import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +13,11 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -35,12 +40,15 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
    * The constructor initializes a new instance of {@code Random} and a {@link ProfileRepository}.
    * @param rng A new instance of {@code Random}.
    * @param profileRepository The instance of {@link ProfileRepository} to be initialized.
+   * @param applicationHome
    */
   @Autowired
-  public ProfileService(Random rng, ProfileRepository profileRepository) {
+  public ProfileService(Random rng, ProfileRepository profileRepository,
+      ApplicationHome applicationHome) {
     this.rng = rng;
     this.profileRepository = profileRepository;
-    uploadRoot = Paths.get("uploads");
+    uploadRoot = applicationHome.getDir().toPath().resolve("uploads");
+    uploadRoot.toFile().mkdirs();
   }
 
   /**
@@ -115,20 +123,38 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
    * Uploads a file to the database.
    * @param file The file to be uploaded.
    * @param profile The {@link Profile} the file will be attached to.
-   * @return The new file name of the file in the database.
+   * @return
    * @throws IOException
    */
-  public String uploadFile(MultipartFile file, Profile profile) throws IOException {
-    ProfilePicture image = new ProfilePicture();
+  public Profile uploadFile(MultipartFile file, Profile profile) throws IOException {
+    ProfilePicture image = (profile.getImage() != null) ? profile.getImage() : new ProfilePicture();
     String fileExtension = getFileExtension(file);
     String fileName = getRandomString();
-    String newFileName = fileName + fileExtension;
-    Files.copy(file.getInputStream(), uploadRoot.resolve(newFileName));
-    image.setPath(fileName);
+    String newFileName = String.format("%s%s", fileName, fileExtension);
+    Path resolvedPath = uploadRoot.resolve(newFileName);
+    Files.copy(file.getInputStream(), resolvedPath);
+    image.setPath(newFileName);
     image.setUser(profile);
+    image.setName(file.getName());
+    image.setContentType(
+        (file.getContentType() != null)
+            ? file.getContentType()
+            : MediaType.APPLICATION_OCTET_STREAM_VALUE);
     profile.setImage(image);
-    profileRepository.save(profile);
-    return newFileName;
+    return profileRepository.save(profile);
+  }
+
+  public Resource retrieve(Profile profile) throws IOException {
+    return Optional.ofNullable(profile.getImage())
+        .map((image) -> uploadRoot.resolve(image.getPath()))
+        .map((path) -> {
+          try {
+            return new UrlResource(path.toUri());
+          } catch (MalformedURLException e) {
+            return null;
+          }
+        })
+        .orElseThrow(IOException::new);
   }
 
   private String getFileExtension(MultipartFile file) {
