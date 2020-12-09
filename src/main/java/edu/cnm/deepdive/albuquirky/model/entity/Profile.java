@@ -43,6 +43,7 @@ public class Profile {
 
   private String address;
 
+  @JsonIgnore
   @NonNull
   @Column(unique = true, nullable = false, updatable = false)
   private String oauth;
