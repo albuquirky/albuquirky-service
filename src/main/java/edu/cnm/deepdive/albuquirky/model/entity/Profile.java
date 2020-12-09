@@ -16,59 +16,37 @@ import javax.persistence.OrderBy;
 import org.springframework.lang.NonNull;
 
 /**
- * This is the {@code Profile} entity class which declares which attributes are needed for each profile which
- * includes, {@link Profile#id}, {@link Profile#username}, password, email and oauth. The profile
- * image and address are both not required. Profile is on the OneToMany side from {@link Commission}
- * which has lists of commission requests and commissions selling. Also {@link Product} has a
- * list of {@link Profile#products}.
+ * This is the {@code Profile} entity class which declares which attributes are needed for each
+ * profile which includes, {@link Profile#id}, {@link Profile#username}, password, email and OAuth.
+ * The profile image and address are both not required. Profile is on the OneToMany side from
+ * {@link Commission} which has lists of commission requests and commissions selling. Also
+ * {@link Product} has a list of {@link Profile#products}.
  */
 @Entity
 public class Profile {
 
-  /**
-   * The Primary Key for the class, the profile id
-   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "profile_id", nullable = false, updatable = false)
   private Long id;
 
-  /**
-   * The profile's username
-   */
   @NonNull
   @Column(unique = true, nullable = false)
   private String username;
 
-  /**
-   * The profile's email
-   */
   @NonNull
   @Column(unique = true, nullable = false)
   private String email;
 
-  /**
-   * The profile's image
-   */
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
   private ProfilePicture image;
 
-  /**
-   * The profile's address
-   */
   private String address;
 
-  /**
-   * The profile's OAuth key from Google Sign-in
-   */
   @NonNull
   @Column(unique = true, nullable = false, updatable = false)
   private String oauth;
 
-  /**
-   * The OneToMany side of the relationship between {@link Order} and {@link Profile} for a list of
-   * orders associated with a profile.
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer",
       cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
@@ -83,10 +61,6 @@ public class Profile {
   @JsonIgnore
   private final List<Order> ordersSold = new LinkedList<>();
 
-  /**
-   * The OneToMany side of the relationship between {@link Product} and {@link Profile} for a list
-   * of products associated with a profile.
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "profile",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
@@ -94,19 +68,12 @@ public class Profile {
   @JsonIgnore
   private final List<Product> products = new LinkedList<>();
 
-  /**
-   * The OneToMany side of the relationship between {@link Commission} and {@link Profile} for a
-   * list of commissions selling
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
   @JsonIgnore
   private final List<Commission> commissionsSelling = new LinkedList<>();
 
-  /**
-   * The OneToMany side of the relationship between {@link Commission} and {@link Profile}
-   */
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "commissioner", cascade = {CascadeType.ALL})
   @OrderBy("waitlistPosition ASC")
@@ -115,6 +82,7 @@ public class Profile {
 
   /**
    * Returns the {@link Profile#id}
+   * @return The ID for the profile.
    */
   public Long getId() {
     return id;
@@ -122,6 +90,7 @@ public class Profile {
 
   /**
    * Returns the {@link Profile#username}
+   * @return The username for the profile.
    */
   @NonNull
   public String getUsername() {
@@ -138,6 +107,7 @@ public class Profile {
 
   /**
    * Returns the {@link Profile#email}
+   * @return The email for the profile.
    */
   @NonNull
   public String getEmail() {
@@ -153,27 +123,24 @@ public class Profile {
   }
 
   /**
-   *
-   * @param id
-   */
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  /**
-   *
-   * @return
+   * Gets the {@link ProfilePicture} for the profile.
+   * @return The profile picture as a {@link ProfilePicture} object.
    */
   public ProfilePicture getImage() {
     return image;
   }
 
+  /**
+   * Sets the {@link ProfilePicture} for the profile.
+   * @param image The new {@link ProfilePicture}.
+   */
   public void setImage(ProfilePicture image) {
     this.image = image;
   }
 
   /**
    * Returns the {@link Profile#address}
+   * @return The address for the profile.
    */
   public String getAddress() {
     return address;
@@ -189,6 +156,7 @@ public class Profile {
 
   /**
    * Returns the Profile's OAuth 2.0
+   * @return The OAuth for the profile.
    */
   @NonNull
   public String getOauth() {
@@ -204,8 +172,8 @@ public class Profile {
   }
 
   /**
-   *
-   * @return List of orders
+   * Gets a list of {@link Order} objects placed by the profile.
+   * @return List of orders placed.
    */
   @NonNull
   public List<Order> getOrdersBought() {
@@ -213,8 +181,8 @@ public class Profile {
   }
 
   /**
-   *
-   * @return
+   * Gets a list of {@link Order} objects sold by the profile.
+   * @return List of orders sold.
    */
   @NonNull
   public List<Order> getOrdersSold() {
@@ -222,7 +190,7 @@ public class Profile {
   }
 
   /**
-   *
+   * Gets a list of {@link Product} objects sold by the user.
    * @return List of products
    */
   @NonNull
@@ -231,7 +199,7 @@ public class Profile {
   }
 
   /**
-   *
+   * Gets the {@link Profile} waitlist.
    * @return List of commissions selling
    */
   @NonNull
@@ -240,7 +208,7 @@ public class Profile {
   }
 
   /**
-   *
+   * Gets the commissions requested by the {@link Profile}.
    * @return List of commissions requested
    */
   @NonNull

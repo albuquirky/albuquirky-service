@@ -28,56 +28,33 @@ import org.springframework.lang.NonNull;
 @Table(indexes = {@Index(columnList = "waitlistPosition")})
 public class Commission {
 
-  /**
-   * The Primary Key for the class, the commission ID.
-   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "commission_id", nullable = false, updatable = false)
   private Long id;
 
-  /**
-   * The details of the commission being requested.
-   */
   @NonNull
   @Column(length = 200, nullable = false)
   private String commissionRequest;
 
-  /**
-   * The waitlist postion for a commission.
-   */
   @NonNull
   private int waitlistPosition;
 
-  /**
-   * The ManyToOne side of the relationship between {@link Commission} and {@link Profile}. This is
-   * is the seller of the commission.
-   */
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "seller_id")
   private Profile seller;
 
-  /**
-   * The timestamp for when the commission was created.
-   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date timestamp;
 
-  /**
-   * The ManyToOne side of the relationship between {@link Commission} and {@link Profile}. This is
-   * the buyer of the commission.
-   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "commissioner_id", nullable = false)
   private Profile commissioner;
 
-  /**
-   * The OneToOne relationship joined by {@link Product}.
-   */
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "product_id")
   private Product product;
@@ -109,8 +86,8 @@ public class Commission {
   }
 
   /**
-   *
-   * @return
+   * Gets the waitlist position for the commission.
+   * @return The current waitlist position.
    */
   public int getWaitlistPosition() {
     return waitlistPosition;
@@ -140,7 +117,8 @@ public class Commission {
   }
 
   /**
-   * Returns the Date timestamp
+   * Gets the commission creation timestamp.
+   * @return The timestamp from when the commission was created.
    */
   @NonNull
   public Date getTimestamp() {
@@ -148,7 +126,8 @@ public class Commission {
   }
 
   /**
-   * Returns the {@link Commission#commissioner}
+   * Gets the commissioning {@link Profile}.
+   * @return The {@link Profile} who created the commission.
    */
   @NonNull
   public Profile getCommissioner() {
@@ -164,7 +143,7 @@ public class Commission {
   }
 
   /**
-   *
+   * Gets the {@link Product} associated with the commission.
    * @return product- Product
    */
   public Product getProduct() {
@@ -172,7 +151,7 @@ public class Commission {
   }
 
   /**
-   * Sets
+   * Sets the {@link Product} associated with the commission.
    * @param product- Product
    */
   public void setProduct(Product product) {

@@ -20,6 +20,10 @@ public class Beans {
     return new Random();
   }
 
+  /**
+   * Provides the AlbuQuirky home directory.
+   * @return The home directory for AlbuQuirky.
+   */
   @Bean
   public ApplicationHome applicationHome() {
     return new ApplicationHome(getClass());

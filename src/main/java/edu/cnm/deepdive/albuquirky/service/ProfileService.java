@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -40,7 +39,7 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
    * The constructor initializes a new instance of {@code Random} and a {@link ProfileRepository}.
    * @param rng A new instance of {@code Random}.
    * @param profileRepository The instance of {@link ProfileRepository} to be initialized.
-   * @param applicationHome
+   * @param applicationHome The AlbuQuirky home directory.
    */
   @Autowired
   public ProfileService(Random rng, ProfileRepository profileRepository,
@@ -79,9 +78,9 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
   }
 
   /**
-   *
-   * @param jwt
-   * @return
+   * Converts the JWT to a {@link UsernamePasswordAuthenticationToken}.
+   * @param jwt The bearer token.
+   * @return The converted {@link UsernamePasswordAuthenticationToken}.
    */
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
@@ -123,8 +122,8 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
    * Uploads a file to the database.
    * @param file The file to be uploaded.
    * @param profile The {@link Profile} the file will be attached to.
-   * @return
-   * @throws IOException
+   * @return The {@link Profile} that has been updated with the new profile picture.
+   * @throws IOException If the file cannot be accessed from the reference provided.
    */
   public Profile uploadFile(MultipartFile file, Profile profile) throws IOException {
     ProfilePicture image = (profile.getImage() != null) ? profile.getImage() : new ProfilePicture();
@@ -144,6 +143,12 @@ public class ProfileService implements Converter<Jwt, UsernamePasswordAuthentica
     return profileRepository.save(profile);
   }
 
+  /**
+   * Retrieves the profile picture associated with the given profile.
+   * @param profile The user {@link Profile}.
+   * @return A {@link Resource} of the {@link ProfilePicture}.
+   * @throws IOException If the file cannot be accessed from the reference provided.
+   */
   public Resource retrieve(Profile profile) throws IOException {
     return Optional.ofNullable(profile.getImage())
         .map((image) -> uploadRoot.resolve(image.getPath()))

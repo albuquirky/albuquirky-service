@@ -5,7 +5,6 @@ import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import edu.cnm.deepdive.albuquirky.service.ProfileService;
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.core.io.Resource;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpHeaders;
@@ -111,7 +110,7 @@ public class ProfileController {
    * @param file The path to the new image.
    * @param auth The user authentication.
    * @return The updated profile image.
-   * @throws IOException
+   * @throws IOException If the file cannot be accessed from the reference provided.
    */
   @PutMapping(value = "/me/image", produces = {MediaType.APPLICATION_JSON_VALUE})
   public Profile uploadImage(@RequestBody MultipartFile file, Authentication auth)
