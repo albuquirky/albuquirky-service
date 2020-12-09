@@ -1,8 +1,10 @@
 package edu.cnm.deepdive.albuquirky.service;
 
 import edu.cnm.deepdive.albuquirky.model.dao.OrderRepository;
+import edu.cnm.deepdive.albuquirky.model.dao.ProductOnOrderRepository;
 import edu.cnm.deepdive.albuquirky.model.dao.ProfileRepository;
 import edu.cnm.deepdive.albuquirky.model.entity.Order;
+import edu.cnm.deepdive.albuquirky.model.entity.ProductOnOrder;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,17 +22,20 @@ public class OrderService {
 
   private final OrderRepository orderRepository;
   private final ProfileRepository profileRepository;
+  private final ProductOnOrderRepository productOnOrderRepository;
 
   /**
    * The constructor creates instances of {@link OrderRepository} and {@link ProfileRepository}.
    * @param orderRepository The {@link OrderRepository} to be created.
    * @param profileRepository The {@link ProfileRepository} to be created.
+   * @param productOnOrderRepository The {@link ProductOnOrderRepository} to be created.
    */
   @Autowired
   public OrderService(OrderRepository orderRepository,
-      ProfileRepository profileRepository) {
+      ProfileRepository profileRepository, ProductOnOrderRepository productOnOrderRepository) {
     this.orderRepository = orderRepository;
     this.profileRepository = profileRepository;
+    this.productOnOrderRepository = productOnOrderRepository;
   }
 
   /**
@@ -75,6 +80,15 @@ public class OrderService {
   public List<Order> getBySeller(Profile profile) {
 //    return orderRepository.getAllBySellerOrderByPlacedDate(profile);
     return null;
+  }
+
+  public List<ProductOnOrder> getProductsOnOrder(long id) {
+    return productOnOrderRepository.getAllByOrderId(id);
+  }
+
+  public ProductOnOrder saveProductOnOrder(ProductOnOrder productOnOrder, Order order) {
+    productOnOrder.setOrder(order);
+    return productOnOrderRepository.save(productOnOrder);
   }
 
 }
