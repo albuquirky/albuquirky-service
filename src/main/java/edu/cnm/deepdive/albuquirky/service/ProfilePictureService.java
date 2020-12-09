@@ -1,8 +1,6 @@
 package edu.cnm.deepdive.albuquirky.service;
 
-import edu.cnm.deepdive.albuquirky.model.dao.ImageRepository;
 import edu.cnm.deepdive.albuquirky.model.dao.ProfilePictureRepository;
-import edu.cnm.deepdive.albuquirky.model.entity.Image;
 import edu.cnm.deepdive.albuquirky.model.entity.Profile;
 import edu.cnm.deepdive.albuquirky.model.entity.ProfilePicture;
 import java.io.IOException;
