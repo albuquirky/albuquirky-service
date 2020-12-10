@@ -23,7 +23,7 @@ import org.springframework.lang.NonNull;
 /**
  * This is the {@code Order} entity class, which declares the attributes needed for orders. Those
  * include the {@link Order#id}, a {@link Order#placedDate} and buyer id which is annotated by a
- * @ManyToOne from {@link Profile}. A @OneToMany annotation for items on order which returns a list
+ * ManyToOne from {@link Profile}. A @OneToMany annotation for items on order which returns a list
  * of items on order coming from {@link ProductOnOrder}.
  */
 @Entity

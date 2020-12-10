@@ -87,6 +87,7 @@ public class CommissionController {
   /**
    * The Delete method that returns a response entity indicating success or failure.
    * @param commissionId The ID of the {@link Commission} to be deleted.
+   * @param profile The user {@link Profile}.
    * @return A {@code ResponseEntity} indicating the status of the delete attempt.
    */
   @DeleteMapping(value = "/{commissionId:\\d+}", consumes = MediaType.APPLICATION_JSON_VALUE)

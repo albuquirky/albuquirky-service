@@ -69,6 +69,7 @@ public class OrderController {
   /**
    * The Post method for creating an order.
    * @param order The {@link Order} to be created.
+   * @param product The {@link Product} on the order.
    * @param auth The authorization for the user.
    * @return The {@link Order} object that was created.
    */

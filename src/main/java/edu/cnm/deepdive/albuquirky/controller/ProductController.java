@@ -57,6 +57,7 @@ public class ProductController {
 
   /**
    * The Get method which returns products from a seller.
+   * @param mine A boolean indicating whether or not the {@link Product} were created by the user.
    * @param auth The user authentication.
    * @return An {@code Iterable} containing all existing {@link Product} objects sold by the user.
    */
