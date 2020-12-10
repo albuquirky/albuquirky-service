@@ -26,7 +26,8 @@ spring:
 #              create-target: ddl.sql
 
 server:
-  port: 8080
+  forward-headers-strategy: framework
+  port: 8181
   servlet:
     context-path: /albuquirky/api
 
